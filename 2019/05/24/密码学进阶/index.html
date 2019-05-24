@@ -110,8 +110,10 @@
 <meta property="og:site_name" content="LJN">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558671392764&di=68cbff5509d97a7354401d51c619e061&imgtype=0&src=http%3A%2F%2Fwww.isto.net.cn%2FUploads%2F201705%2F591908672da4e.jpg">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/05/24/uploads/密码学进阶/密码学进阶.png">
 <meta property="og:image" content="https://qianhaichao.github.io/2019/05/24/uploads/密码学进阶/OpenSSL生成密钥演练.png">
-<meta property="og:updated_time" content="2019-05-24T02:18:13.034Z">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/05/24/uploads/密码学进阶/程序开发证书生成.png">
+<meta property="og:updated_time" content="2019-05-24T05:02:31.139Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="密码学进阶">
 <meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558671392764&di=68cbff5509d97a7354401d51c619e061&imgtype=0&src=http%3A%2F%2Fwww.isto.net.cn%2FUploads%2F201705%2F591908672da4e.jpg">
@@ -385,7 +387,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  176
+                  365
                 </span>
               
 
@@ -424,7 +426,9 @@
       
         <p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1558671392764&amp;di=68cbff5509d97a7354401d51c619e061&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.isto.net.cn%2FUploads%2F201705%2F591908672da4e.jpg" alt="密码学进阶"></p>
 <a id="more"></a>
-<h1 id="OpenSSL生成密钥演练"><a href="#OpenSSL生成密钥演练" class="headerlink" title="OpenSSL生成密钥演练"></a>OpenSSL生成密钥演练</h1><p><img src="../uploads/密码学进阶/OpenSSL生成密钥演练.png" alt></p>
+<h1 id="密码学进阶思维导图"><a href="#密码学进阶思维导图" class="headerlink" title="密码学进阶思维导图"></a>密码学进阶思维导图</h1><p><img src="../uploads/密码学进阶/密码学进阶.png" alt="密码学进阶"></p>
+<p>下面我们针对思维导图一一进行讲解。</p>
+<h1 id="OpenSSL生成密钥演练"><a href="#OpenSSL生成密钥演练" class="headerlink" title="OpenSSL生成密钥演练"></a>OpenSSL生成密钥演练</h1><p><img src="../uploads/密码学进阶/OpenSSL生成密钥演练.png" alt="OpenSSL生成密钥演练"></p>
 <ul>
 <li>生成强度是512的RSA私钥</li>
 </ul>
@@ -457,6 +461,28 @@
 <li>将公钥转成DER格式</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl rsa -in public.pem -out public.der -outform der</span><br></pre></td></tr></table></figure>
+<h1 id="程序开发证书生成"><a href="#程序开发证书生成" class="headerlink" title="程序开发证书生成"></a>程序开发证书生成</h1><p><img src="../uploads/密码学进阶/程序开发证书生成.png" alt="程序开发证书生成"></p>
+<ul>
+<li>生成私钥ca.key</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl genrsa -out ca.key 1024</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建请求证书csr文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl req -new -key ca.key -out rsacert.csr</span><br></pre></td></tr></table></figure>
+<ul>
+<li>生成证书并签名，有效期10年</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl x509 -req -days 3650 -in rsacert.csr -signkey ca.key -out rsacert.crt</span><br></pre></td></tr></table></figure>
+<ul>
+<li>格式转换 crt -&gt; der，生成公钥rsacert.der</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl x509 -req -days 3650 -in rsacert.csr -signkey ca.key -out rsacert.crt</span><br></pre></td></tr></table></figure>
+<ul>
+<li>导出p12文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl pkcs12 -export -out p.p12 -inkey ca.key -in rsacert.crt</span><br></pre></td></tr></table></figure>
+<p>到此为止，我们的文件目录下会创建5个文件，分别为 <code>ca.key</code>、<code>rsacert.csr</code>、<code>rsacert.crt</code>、<code>rsacert.der</code>、<code>p.p12</code>,但是对于我们程序真正有用的只有<code>p.p12</code>和<code>rsacert.der</code>。</p>
 <p> </p>
 
       
@@ -658,7 +684,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenSSL生成密钥演练"><span class="nav-number">1.</span> <span class="nav-text">OpenSSL生成密钥演练</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#密码学进阶思维导图"><span class="nav-number">1.</span> <span class="nav-text">密码学进阶思维导图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenSSL生成密钥演练"><span class="nav-number">2.</span> <span class="nav-text">OpenSSL生成密钥演练</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序开发证书生成"><span class="nav-number">3.</span> <span class="nav-text">程序开发证书生成</span></a></li></ol></div>
             
 
           </div>
@@ -692,7 +718,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">182</span>
+    <span title="Site words total count">371</span>
   
 </div>
 
@@ -716,7 +742,7 @@
 -->
 
 <div class="theme-info">
-    <span class="post-count">博客全站共182字</span>
+    <span class="post-count">博客全站共371字</span>
 </div>
 
 
