@@ -110,7 +110,8 @@
 <meta property="og:site_name" content="LJN">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://blog.lanvige.com/uploads/ios/ios-framework-vs-library.jpg">
-<meta property="og:updated_time" content="2019-05-27T06:58:41.140Z">
+<meta property="og:image" content="http://ps52on3u.bkt.clouddn.com/static/images/Framework嵌套Framework报错.png">
+<meta property="og:updated_time" content="2019-05-27T10:37:50.784Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Framework和Library的制作流程和注意事项">
 <meta name="twitter:image" content="http://blog.lanvige.com/uploads/ios/ios-framework-vs-library.jpg">
@@ -352,7 +353,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  89
+                  309
                 </span>
               
 
@@ -400,7 +401,22 @@
 <li>DynamicFramework中嵌套使用StaticFramework</li>
 <li>DynamicFramework中嵌套使用DynamicFramework </li>
 </ul>
-<h5 id="4-1-nbsp-StaticFramework中嵌套StaticFramework"><a href="#4-1-nbsp-StaticFramework中嵌套StaticFramework" class="headerlink" title="4.1&nbsp;StaticFramework中嵌套StaticFramework"></a>4.1&nbsp;StaticFramework中嵌套StaticFramework</h5><h3 id="5-nbsp-Podfile中-useframework！和useframework！的使用"><a href="#5-nbsp-Podfile中-useframework！和useframework！的使用" class="headerlink" title="5.&nbsp;Podfile中#useframework！和useframework！的使用"></a>5.&nbsp;Podfile中#useframework！和useframework！的使用</h3>
+<h5 id="4-1-nbsp-StaticFramework中嵌套StaticFramework"><a href="#4-1-nbsp-StaticFramework中嵌套StaticFramework" class="headerlink" title="4.1&nbsp;StaticFramework中嵌套StaticFramework"></a>4.1&nbsp;StaticFramework中嵌套StaticFramework</h5><ul>
+<li>创建一个叫做<code>StaticFrameworkOne</code>的Framework的静态库(Static Library),并且内部创建一个<code>StaticFrameworkOneTest</code>的类，并声明<code>staticFrameworkOneTestMethod</code>方法，内部实现如下：</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>StaticFrameworkOneTest.m</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;StaticFrameworkOneTest.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation StaticFrameworkOneTest</span><br><span class="line"></span><br><span class="line">- (void)staticFrameworkOneTestMehtod</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__func__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<ul>
+<li>同样我们在用同样的方法创建一个名为<code>StaticFrameworkTwo</code>的Framework静态库(Static Library),并创建一个<code>StaticFrameworkTwoTest</code>类，声明一个<code>StaticFrameworkTwoTestMethod</code>方法，内部实现如下：</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>StaticFrameworkTwoTest.m</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;StaticFrameworkTwoTest.h&quot;</span><br><span class="line">#import &lt;StaticFrameworkOne/StaticFrameworkOneTest.h&gt;</span><br><span class="line"></span><br><span class="line">@implementation StaticFrameworkTwoTest</span><br><span class="line"></span><br><span class="line">- (void)staticFrameworkTwoTestMehtod</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__func__);</span><br><span class="line">    </span><br><span class="line">    StaticFrameworkOneTest *one = [[StaticFrameworkOneTest alloc] init];</span><br><span class="line">    [one staticFrameworkOneTestMehtod];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>这里我们在<code>StaticFrameworkTwo</code>中引用了<code>StaticFrameworkOne</code>，并调用了<code>StaticFrameworkOneTestMethod</code>方法</p>
+<ul>
+<li>将编译生成好的StaticFrameworkTwo Framework导入项目中，并调用其<code>staticFrameworkTwoTestMethod</code>方法</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>ViewController.m</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;ViewController.h&quot;</span><br><span class="line">#import &lt;StaticFrameworkTwo/StaticFrameworkTwo.h&gt;</span><br><span class="line"></span><br><span class="line">@interface ViewController ()</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation ViewController</span><br><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    StaticFrameworkTwoTest *two = [[StaticFrameworkTwoTest alloc] init];</span><br><span class="line">    [two staticFrameworkTwoTestMehtod];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>当我们command + B 编译的时候发现报错了，提示</p>
+<img src="http://ps52on3u.bkt.clouddn.com/static/images/Framework嵌套Framework报错.png">
+<h3 id="5-nbsp-Podfile中-useframework！和useframework！的使用"><a href="#5-nbsp-Podfile中-useframework！和useframework！的使用" class="headerlink" title="5.&nbsp;Podfile中#useframework！和useframework！的使用"></a>5.&nbsp;Podfile中#useframework！和useframework！的使用</h3>
       
     </div>
     
@@ -625,7 +641,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">489</span>
+    <span title="Site words total count">709</span>
   
 </div>
 
@@ -649,7 +665,7 @@
 -->
 
 <div class="theme-info">
-    <span class="post-count">博客全站共489字</span>
+    <span class="post-count">博客全站共709字</span>
 </div>
 
 
