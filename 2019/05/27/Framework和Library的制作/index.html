@@ -115,7 +115,7 @@
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/Framwork和Library的制作/Dynamic嵌套StaticLibrary报错.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/Framwork和Library的制作/解决Dynamic导入报错.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/Framwork和Library的制作/Dynamic嵌套StaticLibrary报错.png">
-<meta property="og:updated_time" content="2019-05-28T01:23:59.873Z">
+<meta property="og:updated_time" content="2019-06-01T13:32:44.744Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Framework和Library的制作流程和注意事项">
 <meta name="twitter:image" content="http://blog.lanvige.com/uploads/ios/ios-framework-vs-library.jpg">
@@ -357,7 +357,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.7k
+                  2.2k
                 </span>
               
 
@@ -373,7 +373,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8
+                  9
                 </span>
               
             </div>
@@ -396,7 +396,13 @@
       
         <p><img src="http://blog.lanvige.com/uploads/ios/ios-framework-vs-library.jpg" alt="FrameworkVSLibrary"></p>
 <a id="more"></a>
-<h2 id="1-nbsp-Framework和Library的区别"><a href="#1-nbsp-Framework和Library的区别" class="headerlink" title="1.&nbsp;Framework和Library的区别"></a>1.&nbsp;Framework和Library的区别</h2><h2 id="2-nbsp-Framework制作流程"><a href="#2-nbsp-Framework制作流程" class="headerlink" title="2.&nbsp;Framework制作流程"></a>2.&nbsp;Framework制作流程</h2><h2 id="3-nbsp-Library的制作流程"><a href="#3-nbsp-Library的制作流程" class="headerlink" title="3.&nbsp;Library的制作流程"></a>3.&nbsp;Library的制作流程</h2><h2 id="4-nbsp-Framework和Library的嵌套使用"><a href="#4-nbsp-Framework和Library的嵌套使用" class="headerlink" title="4.&nbsp;Framework和Library的嵌套使用"></a>4.&nbsp;Framework和Library的嵌套使用</h2><p>我们接下来讨论以下几种情况</p>
+<h2 id="nbsp-静态库、动态库和Framework的区别？"><a href="#nbsp-静态库、动态库和Framework的区别？" class="headerlink" title="&nbsp;静态库、动态库和Framework的区别？"></a>&nbsp;静态库、动态库和Framework的区别？</h2><p>所谓库就是二进制文件，加上头文件和相关的资源文件就可以提供给别人使用了。</p>
+<ul>
+<li><strong>静态库：</strong>(静态链接库,也叫.a)在编译时会将库copy一份到目标程序中，编译完成之后，目标程序不依赖外部的库，也可以运行，但是缺点就是会使应用程序变大。</li>
+<li><strong>动态库：</strong>(.dylib)编译时只存储指向动态库的引用。可以多个程序指向这个库，在运行时才加载，不会使体积变大，但是运行时加载会损耗部分性能，并且依赖外部的环境，如果库不存在或者版本不正确则无法运行</li>
+<li><strong>Framework：</strong>实际上是一种打包方式，将库的二进制文件，头文件和有关的资源文件打包到一起，方便管理和分发。</li>
+</ul>
+<h2 id="nbsp-Framework制作流程"><a href="#nbsp-Framework制作流程" class="headerlink" title="&nbsp;Framework制作流程"></a>&nbsp;Framework制作流程</h2><h2 id="nbsp-Library的制作流程"><a href="#nbsp-Library的制作流程" class="headerlink" title="&nbsp;Library的制作流程"></a>&nbsp;Library的制作流程</h2><h2 id="nbsp-Framework和Library的嵌套使用"><a href="#nbsp-Framework和Library的嵌套使用" class="headerlink" title="&nbsp;Framework和Library的嵌套使用"></a>&nbsp;Framework和Library的嵌套使用</h2><p>我们接下来讨论以下几种情况</p>
 <ul>
 <li>StaticFramework中嵌套StaticFramework</li>
 <li>StaticFramework中嵌套使用StaticLibrary</li>
@@ -405,7 +411,7 @@
 <li>DynamicFramework中嵌套使用StaticFramework</li>
 <li>DynamicFramework中嵌套使用DynamicFramework </li>
 </ul>
-<h4 id="4-1-nbsp-StaticFramework中嵌套StaticFramework"><a href="#4-1-nbsp-StaticFramework中嵌套StaticFramework" class="headerlink" title="4.1&nbsp;StaticFramework中嵌套StaticFramework"></a>4.1&nbsp;StaticFramework中嵌套StaticFramework</h4><ul>
+<h4 id="nbsp-StaticFramework中嵌套StaticFramework"><a href="#nbsp-StaticFramework中嵌套StaticFramework" class="headerlink" title="&nbsp;StaticFramework中嵌套StaticFramework"></a>&nbsp;StaticFramework中嵌套StaticFramework</h4><ul>
 <li>创建一个叫做<code>StaticFrameworkOne</code>的Framework的静态库(Static Library),并且内部创建一个<code>StaticFrameworkOneTest</code>的类，并声明<code>staticFrameworkOneTestMethod</code>方法，内部实现如下：</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;StaticFrameworkOneTest.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation StaticFrameworkOneTest</span><br><span class="line"></span><br><span class="line">- (void)staticFrameworkOneTestMehtod</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__func__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
@@ -425,7 +431,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2019-05-27 17:23:11.860204+0800 FrameWork制作[8562:334159] -[StaticFrameworkTwoTest staticFrameworkTwoTestMehtod]</span><br><span class="line">2019-05-27 17:23:11.860304+0800 FrameWork制作[8562:334159] -[StaticFrameworkOneTest staticFrameworkOneTestMehtod]</span><br></pre></td></tr></table></figure>
 <p><strong>&emsp;&emsp;总结：</strong>StaticFramework中嵌套使用其他StaticFramework，不会包含内部嵌套的StaticFramwework,只能link其内部的StaticFramework</p>
 <p><strong>&emsp;&emsp;使用场景：</strong>自己的Framework中包含了其他业务也使用的库，为避免最终工程符号冲突或者避免工程多个库文件，采取这种嵌套方式比较合适</p>
-<h4 id="4-2-nbsp-StaticFramework中嵌套StaticLibrary"><a href="#4-2-nbsp-StaticFramework中嵌套StaticLibrary" class="headerlink" title="4.2&nbsp;StaticFramework中嵌套StaticLibrary"></a>4.2&nbsp;StaticFramework中嵌套StaticLibrary</h4><ul>
+<h4 id="nbsp-StaticFramework中嵌套StaticLibrary"><a href="#nbsp-StaticFramework中嵌套StaticLibrary" class="headerlink" title="&nbsp;StaticFramework中嵌套StaticLibrary"></a>&nbsp;StaticFramework中嵌套StaticLibrary</h4><ul>
 <li>创建一个叫做<code>StaticLibraryOne</code>的StaticLibrary,并声明方法<code>staticLibraryOneMethod</code>,内部实现如下：</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;StaticLibraryOne.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation StaticLibraryOne</span><br><span class="line"></span><br><span class="line">- (void)staticLibraryOneMethod</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__func__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
@@ -443,7 +449,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2019-05-27 20:08:44.157571+0800 Framework测试主工程[11412:542791] -[StaticFrameworkOneTest staticFrameworkOneTestMethod]</span><br><span class="line">2019-05-27 20:08:44.157677+0800 Framework测试主工程[11412:542791] -[StaticLibraryOne staticLibraryOneMethod]</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;<strong>总结：</strong> StaticFramework中嵌套使用StaticLibrary，会将StaticLibrary中的内容全部link到Framework中，外部使用StaticFramwork时，无需在单独link内部staticLibrary</p>
 <p>&emsp;&emsp;<strong>使用场景：</strong> 对外提供一个完成的模块时，使用这种嵌套的方式，<font color="red">但是需要注意，内部嵌套使用StaticLibrary时，最好做了类名方法名全部变量等名称的修改,避免冲突<br></font></p>
-<h4 id="4-3-nbsp-StaticLibrary中嵌套StaticLibrary"><a href="#4-3-nbsp-StaticLibrary中嵌套StaticLibrary" class="headerlink" title="4.3&nbsp;StaticLibrary中嵌套StaticLibrary"></a>4.3&nbsp;StaticLibrary中嵌套StaticLibrary</h4><ul>
+<h4 id="nbsp-StaticLibrary中嵌套StaticLibrary"><a href="#nbsp-StaticLibrary中嵌套StaticLibrary" class="headerlink" title="&nbsp;StaticLibrary中嵌套StaticLibrary"></a>&nbsp;StaticLibrary中嵌套StaticLibrary</h4><ul>
 <li>创建一个StaticLibraryOne的静态库StaticLibrary,并实现其方法： </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;StaticLibraryOne.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation StaticLibraryOne</span><br><span class="line"></span><br><span class="line">- (void)staticLibraryOneTestMethod</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__func__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
@@ -460,7 +466,7 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2019-05-27 20:35:26.567364+0800 Framework测试主工程[11743:577093] -[StaticLibraryTwo staticLibraryTwoTestMethod]</span><br><span class="line">2019-05-27 20:35:26.567472+0800 Framework测试主工程[11743:577093] -[StaticLibraryOne staticLibraryOneTestMethod]</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;<strong>总结：</strong>StaticLibrary的嵌套使用，会link所有内容，但是要注意修改类名，避免冲突</p>
-<h4 id="4-4-nbsp-StaticLibrary中嵌套StaticFramework"><a href="#4-4-nbsp-StaticLibrary中嵌套StaticFramework" class="headerlink" title="4.4&nbsp;StaticLibrary中嵌套StaticFramework"></a>4.4&nbsp;StaticLibrary中嵌套StaticFramework</h4><ul>
+<h4 id="nbsp-StaticLibrary中嵌套StaticFramework"><a href="#nbsp-StaticLibrary中嵌套StaticFramework" class="headerlink" title="&nbsp;StaticLibrary中嵌套StaticFramework"></a>&nbsp;StaticLibrary中嵌套StaticFramework</h4><ul>
 <li>将StaticFrameworkOne加入到StaticLibraryOne并调用其方法 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;StaticLibraryOne.h&quot;</span><br><span class="line">#import &lt;StaticFrameworkOne/StaticFrameworkOne.h&gt;</span><br><span class="line"></span><br><span class="line">@implementation StaticLibraryOne</span><br><span class="line"></span><br><span class="line">- (void)staticLibraryOneTest</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__func__);</span><br><span class="line">    </span><br><span class="line">    StaticFrameworkOneTest *one = [[StaticFrameworkOneTest alloc] init];</span><br><span class="line">    [one staticFrameworkOneTestMethod];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
@@ -474,7 +480,7 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2019-05-27 20:54:42.634333+0800 Framework测试主工程[12028:602066] -[StaticLibraryOne staticLibraryOneTest]</span><br><span class="line">2019-05-27 20:54:42.634494+0800 Framework测试主工程[12028:602066] -[StaticFrameworkOneTest staticFrameworkOneTestMethod]</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;<strong>总结：</strong>StaticLibrary嵌套使用staticFramework,不会将staticFramework的内容link进来，外部使用还需要link</p>
-<h4 id="4-5-nbsp-DynamicFramework中嵌套StaticLibrary"><a href="#4-5-nbsp-DynamicFramework中嵌套StaticLibrary" class="headerlink" title="4.5&nbsp;DynamicFramework中嵌套StaticLibrary"></a>4.5&nbsp;DynamicFramework中嵌套StaticLibrary</h4><ul>
+<h4 id="nbsp-DynamicFramework中嵌套StaticLibrary"><a href="#nbsp-DynamicFramework中嵌套StaticLibrary" class="headerlink" title="&nbsp;DynamicFramework中嵌套StaticLibrary"></a>&nbsp;DynamicFramework中嵌套StaticLibrary</h4><ul>
 <li>创建叫DynamicFrameworkOne的DynamicFramework, 添加StaticLibraryOne,并实现方法: </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;DynamicFrameworkOneTest.h&quot;</span><br><span class="line">#import &quot;StaticLibraryOne.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation DynamicFrameworkOneTest</span><br><span class="line"></span><br><span class="line">- (void)dynamicFrameworkOneTest</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__func__);</span><br><span class="line">    </span><br><span class="line">    StaticLibraryOne *one = [[StaticLibraryOne alloc] init];</span><br><span class="line">    [one staticLibraryOneTestMethod];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
@@ -491,7 +497,7 @@
 <img src="http://ps52onw3u.bkt.clouddn.com/static/images/Framwork和Library的制作/Dynamic嵌套StaticLibrary报错.png">
 <p>&emsp;&emsp;<strong>解决办法：</strong></p>
 <img src="http://ps52onw3u.bkt.clouddn.com/static/images/Framwork和Library的制作/解决Dynamic导入报错.png">
-<h4 id="4-6-nbsp-DynamicFramework中嵌套StaticFramework"><a href="#4-6-nbsp-DynamicFramework中嵌套StaticFramework" class="headerlink" title="4.6&nbsp;DynamicFramework中嵌套StaticFramework"></a>4.6&nbsp;DynamicFramework中嵌套StaticFramework</h4><ul>
+<h4 id="nbsp-DynamicFramework中嵌套StaticFramework"><a href="#nbsp-DynamicFramework中嵌套StaticFramework" class="headerlink" title="&nbsp;DynamicFramework中嵌套StaticFramework"></a>&nbsp;DynamicFramework中嵌套StaticFramework</h4><ul>
 <li>DynamicFrameworkOne中导入StaticFramework,并调用其方法，内部如实现如下：</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;DynamicFrameworkOneTest.h&quot;</span><br><span class="line">#import &lt;StaticFrameworkOne/StaticFrameworkOne.h&gt;</span><br><span class="line"></span><br><span class="line">@implementation DynamicFrameworkOneTest</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)dynamicFrameworkOneTestMethod</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__func__);</span><br><span class="line">    </span><br><span class="line">    StaticFrameworkOneTest *one = [[StaticFrameworkOneTest alloc] init];</span><br><span class="line">    [one staticFrameworkOneTestMethod];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
@@ -504,7 +510,7 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2019-05-27 21:43:59.495934+0800 Framework测试主工程[12852:669931] -[DynamicFrameworkOneTest dynamicFrameworkOneTestMethod]</span><br><span class="line">2019-05-27 21:43:59.496059+0800 Framework测试主工程[12852:669931] -[StaticFrameworkOneTest staticFrameworkOneTestMethod]</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;<strong>总结：</strong> DynamicFramework中嵌套使用StaticFramework时，会将StaticFramework中的内容也link到DynamicFramwork内部</p>
-<h4 id="4-7-nbsp-DynamicFramework中嵌套DynamicFramework"><a href="#4-7-nbsp-DynamicFramework中嵌套DynamicFramework" class="headerlink" title="4.7&nbsp;DynamicFramework中嵌套DynamicFramework"></a>4.7&nbsp;DynamicFramework中嵌套DynamicFramework</h4><ul>
+<h4 id="nbsp-DynamicFramework中嵌套DynamicFramework"><a href="#nbsp-DynamicFramework中嵌套DynamicFramework" class="headerlink" title="&nbsp;DynamicFramework中嵌套DynamicFramework"></a>&nbsp;DynamicFramework中嵌套DynamicFramework</h4><ul>
 <li>DynamicFrameworkTwo中导入 DynamicFrameworkOne,并调用其方法，内部实现如下：</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;DynamicFrameworkTwoTest.h&quot;</span><br><span class="line">#import &lt;DynamicFrameworkOne/DynamicFrameworkOne.h&gt;</span><br><span class="line"></span><br><span class="line">@implementation DynamicFrameworkTwoTest</span><br><span class="line"></span><br><span class="line">- (void)dynamicFrameworkTwoTestMethod</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%s&quot;,__func__);</span><br><span class="line">    </span><br><span class="line">    DynamicFrameworkOneTest *one = [[DynamicFrameworkOneTest alloc] init];</span><br><span class="line">    [one dynamicFrameworkOneTestMethod];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
@@ -521,7 +527,36 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2019-05-27 21:58:46.241110+0800 Framework测试主工程[13102:688871] -[DynamicFrameworkTwoTest dynamicFrameworkTwoTestMethod]</span><br><span class="line">2019-05-27 21:58:46.241230+0800 Framework测试主工程[13102:688871] -[DynamicFrameworkOneTest dynamicFrameworkOneTestMethod]</span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;<strong>总结：</strong> DynamicFramework中嵌套使用DynamicFramework时，外部使用DynamicFramework时还需要link内部使用的DynamicFramework,具体查看其内部是否有对应的内部DynamicFramework文件</p>
-<h2 id="5-nbsp-Podfile中-useframework！和useframework！的使用"><a href="#5-nbsp-Podfile中-useframework！和useframework！的使用" class="headerlink" title="5.&nbsp;Podfile中#useframework！和useframework！的使用"></a>5.&nbsp;Podfile中#useframework！和useframework！的使用</h2>
+<h2 id="nbsp-Podfile中-useframework！和useframework！的使用"><a href="#nbsp-Podfile中-useframework！和useframework！的使用" class="headerlink" title="&nbsp;Podfile中#useframework！和useframework！的使用"></a>&nbsp;Podfile中#useframework！和useframework！的使用</h2><ul>
+<li>不使用use_frameworks! -&gt; static libraries 方式 -&gt; 生成.a文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在Podfile中如不加use_frameworks!，cocoapods会生成相应的 .a文件（静态链接库），</span><br><span class="line">Link Binary With Libraries: libPods-**.a 包含了其他用pod导入有第三库的.a文件</span><br></pre></td></tr></table></figure>
+<ul>
+<li>use_frameworks! -&gt; dynamic frameworks 方式 -&gt; 生成.framework文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用了use_frameworks!，cocoapods会生成对应的frameworks文件（包含了头文件，二进制文件，资源文件等等）</span><br><span class="line">Link Binary With Libraries：Pods_xxx.framework包含了其它用pod导入的第三方框架的.framework文件</span><br></pre></td></tr></table></figure>
+<p><strong>使用场景</strong></p>
+<ul>
+<li>Swift项目cocoapods 默认 use_frameworks!</li>
+<li>OC项目cocoapods 默认 #use_frameworks!</li>
+</ul>
+<p><strong>用cocoapods导入OC框架到swift项目：</strong></p>
+<ul>
+<li>#use_frameworks!  必须创建头文件，在头文件里面 <code>#import &quot;AFNetworking.h&quot;</code></li>
+<li>use_frameworks!  如果有头文件，在头文件里面 <code>#import
+&quot;AFNetworking/AFNetworking.h&quot;</code>，其它swift文件中用到不需要再import；如果没有头文件，则在每个需要用到的swift文件里<code>import AFNetworking</code></li>
+</ul>
+<p><strong>用cocoapods导入swift框架到swift项目：</strong></p>
+<ul>
+<li>必须use_frameworks!</li>
+<li>不需要头文件，在需要用到框架的swift文件里 import Alamofire</li>
+</ul>
+<p><strong>用cocoapods导入OC框架到OC项目：</strong></p>
+<ul>
+<li>#use_frameworks! 在需要用到的文件里 #import “AFNetworking.h”；也可以通过pch文件，用法类似swift中的头文件。</li>
+<li>use_frameworks! 与上述类似，用法上没有区别。</li>
+</ul>
+
       
     </div>
     
@@ -712,7 +747,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-nbsp-Framework和Library的区别"><span class="nav-number">1.</span> <span class="nav-text">1. Framework和Library的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-nbsp-Framework制作流程"><span class="nav-number">2.</span> <span class="nav-text">2. Framework制作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-nbsp-Library的制作流程"><span class="nav-number">3.</span> <span class="nav-text">3. Library的制作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-nbsp-Framework和Library的嵌套使用"><span class="nav-number">4.</span> <span class="nav-text">4. Framework和Library的嵌套使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-nbsp-StaticFramework中嵌套StaticFramework"><span class="nav-number">4.0.1.</span> <span class="nav-text">4.1 StaticFramework中嵌套StaticFramework</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-nbsp-StaticFramework中嵌套StaticLibrary"><span class="nav-number">4.0.2.</span> <span class="nav-text">4.2 StaticFramework中嵌套StaticLibrary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-nbsp-StaticLibrary中嵌套StaticLibrary"><span class="nav-number">4.0.3.</span> <span class="nav-text">4.3 StaticLibrary中嵌套StaticLibrary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-nbsp-StaticLibrary中嵌套StaticFramework"><span class="nav-number">4.0.4.</span> <span class="nav-text">4.4 StaticLibrary中嵌套StaticFramework</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-nbsp-DynamicFramework中嵌套StaticLibrary"><span class="nav-number">4.0.5.</span> <span class="nav-text">4.5 DynamicFramework中嵌套StaticLibrary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-nbsp-DynamicFramework中嵌套StaticFramework"><span class="nav-number">4.0.6.</span> <span class="nav-text">4.6 DynamicFramework中嵌套StaticFramework</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-7-nbsp-DynamicFramework中嵌套DynamicFramework"><span class="nav-number">4.0.7.</span> <span class="nav-text">4.7 DynamicFramework中嵌套DynamicFramework</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#5-nbsp-Podfile中-useframework！和useframework！的使用"><span class="nav-number">5.</span> <span class="nav-text">5. Podfile中#useframework！和useframework！的使用</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#nbsp-静态库、动态库和Framework的区别？"><span class="nav-number">1.</span> <span class="nav-text"> 静态库、动态库和Framework的区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nbsp-Framework制作流程"><span class="nav-number">2.</span> <span class="nav-text"> Framework制作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nbsp-Library的制作流程"><span class="nav-number">3.</span> <span class="nav-text"> Library的制作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nbsp-Framework和Library的嵌套使用"><span class="nav-number">4.</span> <span class="nav-text"> Framework和Library的嵌套使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nbsp-StaticFramework中嵌套StaticFramework"><span class="nav-number">4.0.1.</span> <span class="nav-text"> StaticFramework中嵌套StaticFramework</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nbsp-StaticFramework中嵌套StaticLibrary"><span class="nav-number">4.0.2.</span> <span class="nav-text"> StaticFramework中嵌套StaticLibrary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nbsp-StaticLibrary中嵌套StaticLibrary"><span class="nav-number">4.0.3.</span> <span class="nav-text"> StaticLibrary中嵌套StaticLibrary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nbsp-StaticLibrary中嵌套StaticFramework"><span class="nav-number">4.0.4.</span> <span class="nav-text"> StaticLibrary中嵌套StaticFramework</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nbsp-DynamicFramework中嵌套StaticLibrary"><span class="nav-number">4.0.5.</span> <span class="nav-text"> DynamicFramework中嵌套StaticLibrary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nbsp-DynamicFramework中嵌套StaticFramework"><span class="nav-number">4.0.6.</span> <span class="nav-text"> DynamicFramework中嵌套StaticFramework</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nbsp-DynamicFramework中嵌套DynamicFramework"><span class="nav-number">4.0.7.</span> <span class="nav-text"> DynamicFramework中嵌套DynamicFramework</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#nbsp-Podfile中-useframework！和useframework！的使用"><span class="nav-number">5.</span> <span class="nav-text"> Podfile中#useframework！和useframework！的使用</span></a></li></div>
             
 
           </div>
@@ -746,7 +781,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">2.1k</span>
+    <span title="Site words total count">2.6k</span>
   
 </div>
 
@@ -770,7 +805,7 @@
 -->
 
 <div class="theme-info">
-    <span class="post-count">博客全站共2.1k字</span>
+    <span class="post-count">博客全站共2.6k字</span>
 </div>
 
 
