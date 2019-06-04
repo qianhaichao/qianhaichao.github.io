@@ -115,7 +115,7 @@
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/Framwork和Library的制作/Dynamic嵌套StaticLibrary报错.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/Framwork和Library的制作/解决Dynamic导入报错.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/Framwork和Library的制作/Dynamic嵌套StaticLibrary报错.png">
-<meta property="og:updated_time" content="2019-06-01T13:32:44.744Z">
+<meta property="og:updated_time" content="2019-06-04T01:18:22.089Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Framework和Library的制作流程和注意事项">
 <meta name="twitter:image" content="http://blog.lanvige.com/uploads/ios/ios-framework-vs-library.jpg">
@@ -402,7 +402,9 @@
 <li><strong>动态库：</strong>(.dylib)编译时只存储指向动态库的引用。可以多个程序指向这个库，在运行时才加载，不会使体积变大，但是运行时加载会损耗部分性能，并且依赖外部的环境，如果库不存在或者版本不正确则无法运行</li>
 <li><strong>Framework：</strong>实际上是一种打包方式，将库的二进制文件，头文件和有关的资源文件打包到一起，方便管理和分发。</li>
 </ul>
-<h2 id="nbsp-Framework制作流程"><a href="#nbsp-Framework制作流程" class="headerlink" title="&nbsp;Framework制作流程"></a>&nbsp;Framework制作流程</h2><h2 id="nbsp-Library的制作流程"><a href="#nbsp-Library的制作流程" class="headerlink" title="&nbsp;Library的制作流程"></a>&nbsp;Library的制作流程</h2><h2 id="nbsp-Framework和Library的嵌套使用"><a href="#nbsp-Framework和Library的嵌套使用" class="headerlink" title="&nbsp;Framework和Library的嵌套使用"></a>&nbsp;Framework和Library的嵌套使用</h2><p>我们接下来讨论以下几种情况</p>
+<h2 id="nbsp-Framework制作流程"><a href="#nbsp-Framework制作流程" class="headerlink" title="&nbsp;Framework制作流程"></a>&nbsp;Framework制作流程</h2><p>未完待续</p>
+<h2 id="nbsp-Library的制作流程"><a href="#nbsp-Library的制作流程" class="headerlink" title="&nbsp;Library的制作流程"></a>&nbsp;Library的制作流程</h2><p>未完待续</p>
+<h2 id="nbsp-Framework和Library的嵌套使用"><a href="#nbsp-Framework和Library的嵌套使用" class="headerlink" title="&nbsp;Framework和Library的嵌套使用"></a>&nbsp;Framework和Library的嵌套使用</h2><p>我们接下来讨论以下几种情况</p>
 <ul>
 <li>StaticFramework中嵌套StaticFramework</li>
 <li>StaticFramework中嵌套使用StaticLibrary</li>
@@ -530,7 +532,7 @@
 <h2 id="nbsp-Podfile中-useframework！和useframework！的使用"><a href="#nbsp-Podfile中-useframework！和useframework！的使用" class="headerlink" title="&nbsp;Podfile中#useframework！和useframework！的使用"></a>&nbsp;Podfile中#useframework！和useframework！的使用</h2><ul>
 <li>不使用use_frameworks! -&gt; static libraries 方式 -&gt; 生成.a文件</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在Podfile中如不加use_frameworks!，cocoapods会生成相应的 .a文件（静态链接库），</span><br><span class="line">Link Binary With Libraries: libPods-**.a 包含了其他用pod导入有第三库的.a文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在Podfile中如不加use_frameworks!，cocoapods会生成相应的 .a文件（静态链接库），</span><br><span class="line">Link Binary With Libraries: libPods-**.a 包含了其他用pod导入有第三方库的.a文件</span><br></pre></td></tr></table></figure>
 <ul>
 <li>use_frameworks! -&gt; dynamic frameworks 方式 -&gt; 生成.framework文件</li>
 </ul>
@@ -595,6 +597,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/04/ReactNative填坑笔记/" rel="prev" title="ReactNative填坑笔记">
+                ReactNative填坑笔记 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -673,7 +679,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -686,7 +692,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -781,7 +787,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">2.6k</span>
+    <span title="Site words total count">2.7k</span>
   
 </div>
 
@@ -805,7 +811,7 @@
 -->
 
 <div class="theme-info">
-    <span class="post-count">博客全站共2.6k字</span>
+    <span class="post-count">博客全站共2.7k字</span>
 </div>
 
 
