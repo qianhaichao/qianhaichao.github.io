@@ -122,7 +122,11 @@
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190605_48.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190605_48.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190605_49.png">
-<meta property="og:updated_time" content="2019-06-05T11:08:58.392Z">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190606_65.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190606_57.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190606_58.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190606_64.png">
+<meta property="og:updated_time" content="2019-06-06T10:14:31.380Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ReactNative之CodePush热更新">
 <meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
@@ -364,7 +368,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.3k
+                  2.8k
                 </span>
               
 
@@ -380,7 +384,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  11
                 </span>
               
             </div>
@@ -482,9 +486,74 @@
 <li>打开Info.plist文件，在CodePushDeploymentKey中输入$(CODEPUSH_KEY)，并修改Bundle versions为三位</li>
 </ul>
 <img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190605_49.png">
-<p>iOS平台至此配置完毕</p>
+<p>iOS平台至此配置完毕,这里需要<font color="red">特别注意的是上述的前三步配置都是基于<code>PROJECT</code>的，而不是<code>TARGETS</code></font></p>
 <h4 id="配置Android平台"><a href="#配置Android平台" class="headerlink" title="配置Android平台"></a>配置Android平台</h4><p><code>未完待续</code> </p>
-<h3 id="发布版本并测试更新"><a href="#发布版本并测试更新" class="headerlink" title="发布版本并测试更新"></a>发布版本并测试更新</h3>
+<h3 id="发布版本并测试更新"><a href="#发布版本并测试更新" class="headerlink" title="发布版本并测试更新"></a>发布版本并测试更新</h3><p>&emsp;&emsp;一般常见的应用内更新机制分为两种方式，一种是打开App就检查更新，另外一种就是在设置界面让用户主动检查更新并安装。</p>
+<ul>
+<li><p><strong>方式一：打开App就检查版本更新</strong></p>
+<p>  最为简单的使用方式就是在ReactNative的根组件的componentDidMount方法中通过CodePush.sync()(前提是你已经导入的CodePush包：import CodePush from ‘react-native-code-push’) 方法检查并安装更新，如果有安装包可供下载则会在重启后生效。不过这种下载和安装都是静默的，即用户不可见。如果需要用户可见则需要额外的配置。具体可以参考react-native-code-push官方API文档。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">CodePush.sync( &#123;</span><br><span class="line">      //安装模式</span><br><span class="line">      //ON_NEXT_RESUME 下次恢复到前台时</span><br><span class="line">      //ON_NEXT_RESTART 下一次重启时</span><br><span class="line">      //IMMEDIATE 马上更新</span><br><span class="line">      installMode : CodePush.InstallMode.IMMEDIATE ,</span><br><span class="line">      // 强制更新</span><br><span class="line">      // mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE</span><br><span class="line">      deploymentKey: CODE_PUSH_PRODUCTION_KEY,</span><br><span class="line">      //对话框</span><br><span class="line">      updateDialog : &#123;</span><br><span class="line">        //是否显示更新描述</span><br><span class="line">        appendReleaseDescription : true ,</span><br><span class="line">        //更新描述的前缀。 默认为&quot;Description&quot;</span><br><span class="line">        descriptionPrefix : &quot;更新内容：&quot; ,</span><br><span class="line">        //强制更新按钮文字，默认为continue</span><br><span class="line">        mandatoryContinueButtonLabel : &quot;立即更新&quot; ,</span><br><span class="line">        //强制更新时的信息. 默认为&quot;An update is available that must be installed.&quot;</span><br><span class="line">        mandatoryUpdateMessage : &quot;必须更新后才能使用&quot; ,</span><br><span class="line">        //非强制更新时，按钮文字,默认为&quot;ignore&quot;</span><br><span class="line">        optionalIgnoreButtonLabel : &apos;稍后&apos; ,</span><br><span class="line">        //非强制更新时，确认按钮文字. 默认为&quot;Install&quot;</span><br><span class="line">        optionalInstallButtonLabel : &apos;后台更新&apos; ,</span><br><span class="line">        //非强制更新时，检查到更新的消息文本</span><br><span class="line">        optionalUpdateMessage : &apos;有新版本了，是否更新？&apos; ,</span><br><span class="line">        //Alert窗口的标题</span><br><span class="line">        title : &apos;更新提示&apos;</span><br><span class="line">      &#125; ,</span><br><span class="line">        &#125; ,</span><br><span class="line">    );</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;&emsp;上面的配置在检查更新时会弹出提示框，<code>mandatoryInstallMode</code>表示强制更新，<code>appendReleaseDescription</code>表示在发布更新时的描述，是否会显示到更新对话框上让用户可见。</p>
+<ul>
+<li><p><strong>方式二：设置界面，用户手动检查版本更新</strong></p>
+<p>  在用户检查更新按钮后进行检查，如果有更新则会弹出提       示框让用户选择是否更新，如果用户点击了<code>立即更新</code>按钮，则会进行安装包的下载（实际上这时候应该显示现在进度，这里忽略）下载完成后立即重启并生效（也可以配置稍后重启），配置代码如下：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">codePush.checkForUpdate(deploymentKey).then((update) =&gt; &#123;</span><br><span class="line">    if (!update) &#123;</span><br><span class="line">        Alert.alert(&quot;提示&quot;, &quot;已是最新版本--&quot;, [</span><br><span class="line">            &#123;</span><br><span class="line">                text: &quot;Ok&quot;, onPress: () =&gt; &#123;</span><br><span class="line">                console.log(&quot;点了OK&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ]);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        codePush.sync(&#123;</span><br><span class="line">                deploymentKey: deploymentKey,</span><br><span class="line">                updateDialog: &#123;</span><br><span class="line">                    optionalIgnoreButtonLabel: &apos;稍后&apos;,</span><br><span class="line">                    optionalInstallButtonLabel: &apos;立即更新&apos;,</span><br><span class="line">                    optionalUpdateMessage: &apos;有新版本了，是否更新？&apos;,</span><br><span class="line">                    title: &apos;更新提示&apos;</span><br><span class="line">                &#125;,</span><br><span class="line">                installMode: codePush.InstallMode.IMMEDIATE,</span><br><span class="line"></span><br><span class="line">            &#125;,</span><br><span class="line">            (status) =&gt; &#123;</span><br><span class="line">                switch (status) &#123;</span><br><span class="line">                    case codePush.SyncStatus.DOWNLOADING_PACKAGE:</span><br><span class="line">                        console.log(&quot;DOWNLOADING_PACKAGE&quot;);</span><br><span class="line">                        break;</span><br><span class="line">                    case codePush.SyncStatus.INSTALLING_UPDATE:</span><br><span class="line">                        console.log(&quot; INSTALLING_UPDATE&quot;);</span><br><span class="line">                        break;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            (progress) =&gt; &#123;</span><br><span class="line">                console.log(progress.receivedBytes + &quot; of &quot; + progress.totalBytes + &quot; received.&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="如何发布CodePush更新包"><a href="#如何发布CodePush更新包" class="headerlink" title="如何发布CodePush更新包"></a>如何发布CodePush更新包</h4><p>&emsp;&emsp;CodePush支持两种发布更新的方式，一种是通过<font color="red">code-push release-react</font>简化方式，另外一种是<font color="red">code-push realse</font>的复杂方式</p>
+<blockquote>
+<p>第一种方式：通过code-push release-react发布更新</p>
+</blockquote>
+<p>这种方式将打包与发布两个命令合二为一，可以说大大简化了我们的操作流程，建议大家多使用这种方式来发布更新</p>
+<p>命令格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ code-push release-react &lt;AppName&gt; &lt;Platform&gt;</span><br></pre></td></tr></table></figure>
+<p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ code-push release-react iOSRNHybrid ios</span><br><span class="line">$ code-push release-react iOSRNHybrid android</span><br></pre></td></tr></table></figure>
+<p>再来个更加高级的，命令格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ code-push release-react &lt;AppName&gt; &lt;Platform&gt; --t &lt;App项目版本号&gt; --des &lt;本次更新说明&gt; --dev &lt;是否调试&gt; --d &lt;Staging/Prodcution&gt; --m &lt;是否强制更新&gt;</span><br></pre></td></tr></table></figure>
+<p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ code-push release-react iOSRNHybrid ios --t 1.0.0 --des &apos;这是第一个更新包&apos; --dev false --d Production --m true</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong> CodePush默认是Staging环境的，如果发布生产环境的更新包，需要指定 –d参数： <code>--d Production</code>,如果发布强制更新包，还需要加上 <code>--m true</code>强制更新,这里的<code>--t</code>参数，不是更新包的版本，而且工程项目的版本号。</p>
+<p>关于<font color="red">code-push release-react</font>更多可选的参数，可以在终端输入<font color="red">code-push release-react</font>进行查看。</p>
+<p>另外我们可以通过<font color="red">code-push depleyment ls <appname></appname></font>来查看发布详情与此次更新的安装情况</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190606_65.png">
+<p><br></p>
+<blockquote>
+<p>方式二：通过code-push realse 发布更新</p>
+</blockquote>
+<p><font color="red">code-push release</font>发布更新之前，我们需要将js与图片资源进行打包处理成bundle。</p>
+<p><strong>生成bundle</strong></p>
+<ul>
+<li>我们在RN项目的根目录创建bundle文件夹，再在bundle中创建ios和android文件夹，最后将生成的bundle文件和资源文件拖到我的项目工程中</li>
+</ul>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190606_57.png">
+<ul>
+<li>生成bundle的命令如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ react-native bundle --platform &lt;平台名称&gt; --entry-file &lt;启动文件&gt; --bundle-output &lt;打包js输出文件的目录&gt; --assets-dest &lt;资源输出目录&gt; --dev &lt;是否调试&gt;</span><br></pre></td></tr></table></figure>
+<p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ react-native bundle --platform ios --entry-file index.js --bundle-output ./bundle/ios/main.jsbundle --assets-dest ./bundle/ios --dev false</span><br></pre></td></tr></table></figure>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190606_58.png">
+<p><strong>上传bundle</strong></p>
+<ul>
+<li>将生成的bundle文件上传到CodePush,我们输入以下命令即可</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ code-push release &lt;AppName&gt; &lt;Bundles所在的目录&gt; &lt;对应的应用版本号&gt; --d &lt;Staging/Production&gt; --des &lt;更新描述&gt; --m &lt;是否强制更新&gt;</span><br></pre></td></tr></table></figure>
+<p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ code-push release iOSRNHybrid ./bundle/ios/main.jsbundle 1.0.0 --d Staging --des &apos;第一次relase的方式更新&apos; --m false</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong> CodePush默认是Staging环境的，如果发布生产环境的更新包，需要指定 –d参数： <code>--d Production</code>,如果发布强制更新包，还需要加上 <code>--m true</code>强制更新,这里的–t参数，不是更新包的版本，而且工程项目的版本号。</p>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><ul>
+<li>查看发布历史记录，命令如下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ code-push deployment history &lt;ProjectName&gt; Staging/Production</span><br></pre></td></tr></table></figure>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190606_64.png">
+<ul>
+<li>查看已经添加应用的deployment-key</li>
+</ul>
+<p>未完待续</p>
+
       
     </div>
     
@@ -675,7 +744,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是CodePush"><span class="nav-number">1.</span> <span class="nav-text">什么是CodePush?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集成流程"><span class="nav-number">2.</span> <span class="nav-text">集成流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装CodePush-CLI"><span class="nav-number">3.</span> <span class="nav-text">安装CodePush CLI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册CodePush账号"><span class="nav-number">4.</span> <span class="nav-text">注册CodePush账号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在CodePush服务器中注册App"><span class="nav-number">5.</span> <span class="nav-text">在CodePush服务器中注册App</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReactNative中集成react-native-code-push"><span class="nav-number">6.</span> <span class="nav-text">ReactNative中集成react-native-code-push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原生应用中配置CodePush"><span class="nav-number">7.</span> <span class="nav-text">原生应用中配置CodePush</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置iOS平台"><span class="nav-number">7.1.</span> <span class="nav-text">配置iOS平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置Android平台"><span class="nav-number">7.2.</span> <span class="nav-text">配置Android平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布版本并测试更新"><span class="nav-number">8.</span> <span class="nav-text">发布版本并测试更新</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是CodePush"><span class="nav-number">1.</span> <span class="nav-text">什么是CodePush?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集成流程"><span class="nav-number">2.</span> <span class="nav-text">集成流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装CodePush-CLI"><span class="nav-number">3.</span> <span class="nav-text">安装CodePush CLI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册CodePush账号"><span class="nav-number">4.</span> <span class="nav-text">注册CodePush账号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在CodePush服务器中注册App"><span class="nav-number">5.</span> <span class="nav-text">在CodePush服务器中注册App</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReactNative中集成react-native-code-push"><span class="nav-number">6.</span> <span class="nav-text">ReactNative中集成react-native-code-push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原生应用中配置CodePush"><span class="nav-number">7.</span> <span class="nav-text">原生应用中配置CodePush</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置iOS平台"><span class="nav-number">7.1.</span> <span class="nav-text">配置iOS平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置Android平台"><span class="nav-number">7.2.</span> <span class="nav-text">配置Android平台</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布版本并测试更新"><span class="nav-number">8.</span> <span class="nav-text">发布版本并测试更新</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何发布CodePush更新包"><span class="nav-number">8.1.</span> <span class="nav-text">如何发布CodePush更新包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用命令"><span class="nav-number">8.2.</span> <span class="nav-text">常用命令</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -709,7 +778,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">4.7k</span>
+    <span title="Site words total count">6.2k</span>
   
 </div>
 
@@ -733,7 +802,7 @@
 -->
 
 <div class="theme-info">
-    <span class="post-count">博客全站共4.7k字</span>
+    <span class="post-count">博客全站共6.2k字</span>
 </div>
 
 
