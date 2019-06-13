@@ -92,7 +92,7 @@
 
 
 
-  <meta name="keywords" content="React Native,">
+  <meta name="keywords" content="ReactNative,">
 
 
 
@@ -103,17 +103,26 @@
 
 
 
-<meta name="keywords" content="React Native">
+<meta name="keywords" content="ReactNative">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ReactNative填坑笔记">
-<meta property="og:url" content="https://qianhaichao.github.io/2019/06/04/ReactNative填坑笔记/index.html">
+<meta property="og:title" content="bsdiff的使用">
+<meta property="og:url" content="https://qianhaichao.github.io/2019/06/13/bsdiff的使用/index.html">
 <meta property="og:site_name" content="LJN">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190604_31.png">
-<meta property="og:updated_time" content="2019-06-06T06:27:14.669Z">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_11.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_3.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_4.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_12.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_5.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_6.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_9.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_13.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_14.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_15.png">
+<meta property="og:updated_time" content="2019-06-13T09:13:56.201Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ReactNative填坑笔记">
+<meta name="twitter:title" content="bsdiff的使用">
 <meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
 
 
@@ -144,13 +153,13 @@
 
 
 
-  <link rel="canonical" href="https://qianhaichao.github.io/2019/06/04/ReactNative填坑笔记/">
+  <link rel="canonical" href="https://qianhaichao.github.io/2019/06/13/bsdiff的使用/">
 
 
 
 
 
-  <title>ReactNative填坑笔记 | LJN</title>
+  <title>bsdiff的使用 | LJN</title>
   
 
 
@@ -281,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://qianhaichao.github.io/2019/06/04/ReactNative填坑笔记/">
+    <link itemprop="mainEntityOfPage" href="https://qianhaichao.github.io/2019/06/13/bsdiff的使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LJN～Chao">
@@ -298,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ReactNative填坑笔记</h1>
+          <h1 class="post-title" itemprop="name headline">bsdiff的使用</h1>
         
 
         <div class="post-meta">
@@ -310,8 +319,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-04T14:28:39+08:00">
-                2019-06-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-13T16:51:05+08:00">
+                2019-06-13
               </time>
             
 
@@ -328,7 +337,7 @@
 
           
           
-             <span id="/2019/06/04/ReactNative填坑笔记/" class="leancloud_visitors" data-flag-title="ReactNative填坑笔记">
+             <span id="/2019/06/13/bsdiff的使用/" class="leancloud_visitors" data-flag-title="bsdiff的使用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -353,7 +362,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  20
+                  1.1k
                 </span>
               
 
@@ -369,7 +378,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  4
                 </span>
               
             </div>
@@ -392,9 +401,70 @@
       
         <img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
 <a id="more"></a>
-<h3 id="react-native中‘RCTLog-h’file-not-found处理"><a href="#react-native中‘RCTLog-h’file-not-found处理" class="headerlink" title="react-native中‘RCTLog.h’file not found处理"></a><font color="red">react-native中‘RCTLog.h’file not found处理</font></h3><p><strong>解决办法：</strong></p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190604_31.png">
-<h3 id="‘React-RCTBridgeDelegate-h’-file-not-found"><a href="#‘React-RCTBridgeDelegate-h’-file-not-found" class="headerlink" title="‘React/RCTBridgeDelegate.h’ file not found"></a><font color="red">‘React/RCTBridgeDelegate.h’ file not found</font></h3>
+<p>最近刚刚做完ReactNative基于微软的CodePush进行热更新，可是发现一个问题就是，如果每次更新太慢，一个原因可能是微软的CodePush的服务器在国外，那么如何不依赖微软的CodePush服务器实现增量更新呢？看另一篇博客<a href="./ReactNative之iOS原生项目集成ReactNative模块.md">ReactNative之增量升级方案</a>,这里主要针对如何实现增量补丁的打包，以及如何将增量包和旧包合并成新包，通过bsdiff技术实现，下面针对Mac、iOS和Android三个平台进行一一讲解。</p>
+<h3 id="bsdiff介绍"><a href="#bsdiff介绍" class="headerlink" title="bsdiff介绍"></a>bsdiff介绍</h3><p>bsdiff是一种二进制差分工具，有bsdiff和bspatch组成，将oldfile和newfile做二进制数据差分（即bsdiff操作），得到更新部分(patch文件),再与oldfile进行合并(bspatch操作)成newfile。</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_11.png">
+<h3 id="Mac下使用bsdiff"><a href="#Mac下使用bsdiff" class="headerlink" title="Mac下使用bsdiff"></a>Mac下使用bsdiff</h3><ul>
+<li>打开终端安装bsdiff</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install bsdiff</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用bsdiff生成xxx.patched补丁文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bsdiff ./Desktop/test/hot_old.zip  ./Desktop/test/hot_new.zip ./Desktop/test/hot.patched</span><br></pre></td></tr></table></figure>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_3.png">
+<ul>
+<li>使用bspatch生成新包文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 注意这里的文件路径</span><br><span class="line">$ bspatch ./Desktop/test/hot_old.zip ./Desktop/test/hot_new_patch.zip ./Desktop/test/hot.patched</span><br></pre></td></tr></table></figure>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_4.png">
+<ul>
+<li>验证生成的新包是否正确，通过md5值是否相同，相同则生成正确</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ md5 ./Desktop/test/hot_new.zip</span><br><span class="line">MD5 (./Desktop/test/hot_new.zip) = bd6c61e552e913d563bc3b16b82fb994</span><br><span class="line"></span><br><span class="line">$ md5 ./Desktop/test/hot_new_patch.zip</span><br><span class="line">MD5 (./Desktop/test/hot_new_patch.zip) = bd6c61e552e913d563bc3b16b82fb994</span><br></pre></td></tr></table></figure>
+<h3 id="iOS使用bsdiff进行文件资源增量更新-bsdiff-bspatch"><a href="#iOS使用bsdiff进行文件资源增量更新-bsdiff-bspatch" class="headerlink" title="iOS使用bsdiff进行文件资源增量更新(bsdiff/bspatch)"></a>iOS使用bsdiff进行文件资源增量更新(bsdiff/bspatch)</h3><h4 id="下载bsdiff-bzip2文件"><a href="#下载bsdiff-bzip2文件" class="headerlink" title="下载bsdiff bzip2文件"></a>下载bsdiff bzip2文件</h4><ul>
+<li>bsdiff下载链接：<a href="http://www.daemonology.net/bsdiff/" target="_blank" rel="noopener">http://www.daemonology.net/bsdiff/</a></li>
+<li>bzip2下载链接：<a href="https://sourceforge.net/projects/bzip2/" target="_blank" rel="noopener">https://sourceforge.net/projects/bzip2/</a></li>
+</ul>
+<h4 id="iOS集成（xcode10-2）"><a href="#iOS集成（xcode10-2）" class="headerlink" title="iOS集成（xcode10.2）"></a>iOS集成（xcode10.2）</h4><ul>
+<li>新建一个工程，将下载好的bsdiff、bzip2导入工程中，大致内容如下</li>
+</ul>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_12.png">
+<ul>
+<li>编译工程，会报如下错误，意料之中，大致原因是因为存在相同的main函数，我们只需要按照提示一步一步修改方法名字就可以了。</li>
+</ul>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_5.png">
+<p>&emsp;&emsp;&emsp;解决办法如下,这里只演示修改一个文件</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_6.png">
+<ul>
+<li>在编译发现除了main函数重名以外，还有一个错误如下所示</li>
+</ul>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_9.png">
+<p>&emsp;&emsp;&emsp;解决办法如下：我们查看<code>bzip2.c</code>和<code>bzip2recover.c</code>,搜索<code>progName</code>字段，发现又是重名了，那么修改即可，这里不做演示，本项目是将<code>bzip2recover.c</code>文件的<code>progName</code>改为<code>progNameRecover</code></p>
+<ul>
+<li>再次编译，恭喜你编译成功了～，不成功你找我。</li>
+<li>因为bsdiff为C语言编写，oc引用c语言，需要新建一个.h文件，在.h文件中引用bsdiff.c和bspatch的方法(该方法名是我讲main方法改名后的方法名)</li>
+</ul>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_13.png">
+<ul>
+<li>并且还需要在<code>bsdiff.c</code>和<code>bspatch.c</code>文件中<code>#include &quot;BsdiffTool.h&quot;</code> </li>
+<li>下面进行本地测试，我们本地创建两个文件夹，大致内容如下，然后打包成zip,然后拖入工程中</li>
+</ul>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_14.png">
+<ul>
+<li>调用bsdiff方法，生成补丁包patch，项目命名为<code>hot_bsdiff</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> 生成增量补丁patch包</span><br><span class="line"> 参数一： 固定字符串</span><br><span class="line"> 参数二： oldfile文件路径</span><br><span class="line"> 参数三： newfile文件路径</span><br><span class="line"> 参数四： 合成patch的文件路径</span><br><span class="line"> */</span><br><span class="line">- (void)bsdiff</span><br><span class="line">&#123;</span><br><span class="line">    const char *argv[4];</span><br><span class="line">    argv[0] = &quot;bsdiff&quot;;</span><br><span class="line">    </span><br><span class="line">    // old path</span><br><span class="line">    NSString *oldPath = [NSString stringWithFormat:@&quot;/%@/%@&quot;,[NSBundle mainBundle].bundlePath, @&quot;hot_old.zip&quot;];</span><br><span class="line">    argv[1] = [oldPath UTF8String];</span><br><span class="line">    </span><br><span class="line">    // new path</span><br><span class="line">    NSString *newPath = [NSString stringWithFormat:@&quot;/%@/%@&quot;,[NSBundle mainBundle].bundlePath, @&quot;hot_new.zip&quot;];</span><br><span class="line">    argv[2] = [newPath UTF8String];</span><br><span class="line">    </span><br><span class="line">    // patched path</span><br><span class="line">    argv[3] = [[self createFileWithFileName:@&quot;hot_bsdiff&quot;] UTF8String];</span><br><span class="line">    </span><br><span class="line">    int result = BsdiffUntils_bsdiff(4, argv);</span><br><span class="line">    NSLog(@&quot;bsdiff结果：%d&quot;,result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时运行项目，你会发现document路径下会出现一个<code>hot_bsdiff</code>文件，这个文件就是oldfile和newfile文件二进制差分出来的文件，也就是需要更新的文件，但是这个文件不能直接使用，需要我们通过bspatch方法合成新的zip文件。</p>
+<ul>
+<li>调用bspatch方法，将hot_old.zip + hot_bsdiff(patch增量包) 生成新包hot_new.zip,项目命名为<code>hot_bspatch_new.zip</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> 根据增量补丁patch包 + 旧包 生成新包</span><br><span class="line"> 参数一： 为固定字符串</span><br><span class="line"> 参数二： oldfile文件路径</span><br><span class="line"> 参数三： oldfile与patch合成zip文件的路径</span><br><span class="line"> 参数四： 差分出来的patch补丁包文件路径</span><br><span class="line"> */</span><br><span class="line">- (void)bspatch</span><br><span class="line">&#123;</span><br><span class="line">    const char *argv[4];</span><br><span class="line">    argv[0] = &quot;bspatch&quot;;</span><br><span class="line">    </span><br><span class="line">    // old path</span><br><span class="line">    NSString *oldPath = [NSString stringWithFormat:@&quot;/%@/%@&quot;,[NSBundle mainBundle].bundlePath, @&quot;hot_old.zip&quot;];</span><br><span class="line">    argv[1] = [oldPath UTF8String];</span><br><span class="line">    </span><br><span class="line">    // new path</span><br><span class="line">    argv[2] = [[self createFileWithFileName:@&quot;hot_bspatch_new.zip&quot;] UTF8String];</span><br><span class="line">    </span><br><span class="line">    // patch path</span><br><span class="line">    argv[3] = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@&quot;hot_bsdiff&quot;] UTF8String];</span><br><span class="line">    </span><br><span class="line">    int result = BsdiffUntils_bspatch(4, argv);</span><br><span class="line">    NSLog(@&quot;bspatch结果：%d&quot;,result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行项目，在对应路径下，就会看到<code>hot_bspatch_new.zip</code>文件，此时解压次安装包，内容如下</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_15.png">
+<p>至此iOS集成bsdiff完成。</p>
+<h4 id="android使用bsdiff"><a href="#android使用bsdiff" class="headerlink" title="android使用bsdiff"></a>android使用bsdiff</h4><p>后续更新</p>
+
       
     </div>
     
@@ -411,7 +481,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/React-Native/" rel="tag"># React Native</a>
+            <a href="/tags/ReactNative/" rel="tag"># ReactNative</a>
           
         </div>
       
@@ -424,8 +494,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/27/Framework和Library的制作/" rel="next" title="Framework和Library的制作流程和注意事项">
-                <i class="fa fa-chevron-left"></i> Framework和Library的制作流程和注意事项
+              <a href="/2019/06/12/ReactNative之iOS原生项目集成ReactNative模块/" rel="next" title="ReactNative之iOS原生项目集成ReactNative模块">
+                <i class="fa fa-chevron-left"></i> ReactNative之iOS原生项目集成ReactNative模块
               </a>
             
           </div>
@@ -433,10 +503,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/04/玩转Git三剑客/" rel="prev" title="玩转Git三剑客">
-                玩转Git三剑客 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -589,7 +655,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#react-native中‘RCTLog-h’file-not-found处理"><span class="nav-number">1.</span> <span class="nav-text">react-native中‘RCTLog.h’file not found处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#‘React-RCTBridgeDelegate-h’-file-not-found"><span class="nav-number">2.</span> <span class="nav-text">‘React/RCTBridgeDelegate.h’ file not found</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#bsdiff介绍"><span class="nav-number">1.</span> <span class="nav-text">bsdiff介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac下使用bsdiff"><span class="nav-number">2.</span> <span class="nav-text">Mac下使用bsdiff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS使用bsdiff进行文件资源增量更新-bsdiff-bspatch"><span class="nav-number">3.</span> <span class="nav-text">iOS使用bsdiff进行文件资源增量更新(bsdiff/bspatch)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载bsdiff-bzip2文件"><span class="nav-number">3.1.</span> <span class="nav-text">下载bsdiff bzip2文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS集成（xcode10-2）"><span class="nav-number">3.2.</span> <span class="nav-text">iOS集成（xcode10.2）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#android使用bsdiff"><span class="nav-number">3.3.</span> <span class="nav-text">android使用bsdiff</span></a></li></ol></li></ol></div>
             
 
           </div>

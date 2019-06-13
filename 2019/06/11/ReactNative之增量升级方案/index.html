@@ -111,7 +111,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190606_66.png">
-<meta property="og:updated_time" content="2019-06-11T07:08:56.171Z">
+<meta property="og:updated_time" content="2019-06-13T09:14:29.429Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ReactNative之增量升级方案">
 <meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
@@ -353,7 +353,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  608
+                  1.2k
                 </span>
               
 
@@ -369,7 +369,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  4
                 </span>
               
             </div>
@@ -392,6 +392,16 @@
       
         <img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
 <a id="more"></a>
+<h3 id="起初萌芽"><a href="#起初萌芽" class="headerlink" title="起初萌芽"></a>起初萌芽</h3><p>React Native的热更新就是下载新RN包替换老RN包，但是这样我们的问题就是每次的全量更新RN包会很大，一个影响app包的体积大小，而是浪费用户的带宽流量。那么我们需要考虑的就是增量更新，要达到增量更新的目的，就需要把老RN包和新RN包的差异性找出来，并且可以将这些差异与老RN包还原出新RN包。bsdiff和bspatch相关技术能实现目标。</p>
+<h3 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h3><p><strong>1、服务器</strong><br> 使用bsdiff算法将老RN包和新RN包生成一个补丁patch文件，供客户端下载。</p>
+<p><strong>2、客户端</strong></p>
+<p>下载patch文件，使用bspatch算法将补丁patch文件和老RN包生成一个新的RN包</p>
+<h3 id="安装包命名规范"><a href="#安装包命名规范" class="headerlink" title="安装包命名规范"></a>安装包命名规范</h3><p><strong>1.命名规则：hot_老版本号_新版本号.patched</strong></p>
+<p>如：<br>第一个包，版本号为1，不需要补丁patch文件<br>第二个包，版本号为2，则与第一个包生成一个补丁文件，命名为hot_1_2.patched<br>第三个包，版本号为3，则与第一个包生成一个补丁文件，命名为hot_1_3.patched<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;则与第二个包生成一个补丁文件，命名规则为hot_2_3.patched<br>第四个包，版本号为4，则与第一个包生成一个补丁文件，命名为hot_1_4.patched<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;则与第二个包生成一个补丁，命名为hot_2_4.patched<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;则与第三个包生成一个补丁，命名为hot_3_4.patched</p>
+<p><strong>2.服务器接口根据版本号，返回最新的补丁patch文件</strong></p>
+<p>如：服务器存在<br><code>hot_1_2.patched</code>、<code>hot_1_3.patched</code>、<code>hot_1_4.patched</code>、<code>hot_2_3.patched</code>、<code>hot_2_4.patched</code>、<code>hot_3_4.patched</code>等这些补丁文件。</p>
+<p>则请求结果如下：<br>当收到版本号为1的请求时，服务器返回hot_1_4.patched;<br>当收到版本号为2的请求时，服务器返回hot_2_4.patched;<br>当收到版本号为3的请求时，服务器返回hot_3_4.patched;</p>
+<p>更为复杂的情况，由于我们时混合开发，当牵扯到RN与Native之间的交互发生变更时，我们就不能让热更新发挥作用了，否则会导致崩溃，这里需要做一下逻辑处理。</p>
 <h3 id="系统设计和各模块职责"><a href="#系统设计和各模块职责" class="headerlink" title="系统设计和各模块职责"></a>系统设计和各模块职责</h3><img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190606_66.png">
 <h3 id="何为增量？"><a href="#何为增量？" class="headerlink" title="何为增量？"></a>何为增量？</h3><p>一个完整的RN-App通常包含以下几个部分：</p>
 <ul>
@@ -543,7 +553,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -556,7 +566,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -617,7 +627,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统设计和各模块职责"><span class="nav-number">1.</span> <span class="nav-text">系统设计和各模块职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何为增量？"><span class="nav-number">2.</span> <span class="nav-text">何为增量？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增量算法"><span class="nav-number">3.</span> <span class="nav-text">增量算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bundle要求的app最小版本"><span class="nav-number">4.</span> <span class="nav-text">bundle要求的app最小版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bundle仓库设计"><span class="nav-number">5.</span> <span class="nav-text">bundle仓库设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">6.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#起初萌芽"><span class="nav-number">1.</span> <span class="nav-text">起初萌芽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本流程"><span class="nav-number">2.</span> <span class="nav-text">基本流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装包命名规范"><span class="nav-number">3.</span> <span class="nav-text">安装包命名规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统设计和各模块职责"><span class="nav-number">4.</span> <span class="nav-text">系统设计和各模块职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何为增量？"><span class="nav-number">5.</span> <span class="nav-text">何为增量？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增量算法"><span class="nav-number">6.</span> <span class="nav-text">增量算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bundle要求的app最小版本"><span class="nav-number">7.</span> <span class="nav-text">bundle要求的app最小版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bundle仓库设计"><span class="nav-number">8.</span> <span class="nav-text">bundle仓库设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">9.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
             
 
           </div>
@@ -651,7 +661,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">7k</span>
+    <span title="Site words total count">8.7k</span>
   
 </div>
 
@@ -675,7 +685,7 @@
 -->
 
 <div class="theme-info">
-    <span class="post-count">博客全站共7k字</span>
+    <span class="post-count">博客全站共8.7k字</span>
 </div>
 
 
