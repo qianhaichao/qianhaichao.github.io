@@ -120,7 +120,7 @@
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_13.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_14.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_15.png">
-<meta property="og:updated_time" content="2019-06-13T09:13:56.201Z">
+<meta property="og:updated_time" content="2019-06-13T09:18:06.743Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="bsdiff的使用">
 <meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
@@ -401,7 +401,7 @@
       
         <img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
 <a id="more"></a>
-<p>最近刚刚做完ReactNative基于微软的CodePush进行热更新，可是发现一个问题就是，如果每次更新太慢，一个原因可能是微软的CodePush的服务器在国外，那么如何不依赖微软的CodePush服务器实现增量更新呢？看另一篇博客<a href="./ReactNative之iOS原生项目集成ReactNative模块.md">ReactNative之增量升级方案</a>,这里主要针对如何实现增量补丁的打包，以及如何将增量包和旧包合并成新包，通过bsdiff技术实现，下面针对Mac、iOS和Android三个平台进行一一讲解。</p>
+<p>最近刚刚做完ReactNative基于微软的CodePush进行热更新，可是发现一个问题就是，如果每次更新太慢，一个原因可能是微软的CodePush的服务器在国外，那么如何不依赖微软的CodePush服务器实现增量更新呢？看另一篇博客<br><a href="/2019/06/11/ReactNative之增量升级方案/" title="ReactNative之增量升级方案">ReactNative之增量升级方案</a>,这里主要针对如何实现增量补丁的打包，以及如何将增量包和旧包合并成新包，通过bsdiff技术实现，下面针对Mac、iOS和Android三个平台进行一一讲解。</p>
 <h3 id="bsdiff介绍"><a href="#bsdiff介绍" class="headerlink" title="bsdiff介绍"></a>bsdiff介绍</h3><p>bsdiff是一种二进制差分工具，有bsdiff和bspatch组成，将oldfile和newfile做二进制数据差分（即bsdiff操作），得到更新部分(patch文件),再与oldfile进行合并(bspatch操作)成newfile。</p>
 <img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_11.png">
 <h3 id="Mac下使用bsdiff"><a href="#Mac下使用bsdiff" class="headerlink" title="Mac下使用bsdiff"></a>Mac下使用bsdiff</h3><ul>
