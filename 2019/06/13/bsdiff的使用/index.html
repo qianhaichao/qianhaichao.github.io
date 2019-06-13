@@ -120,7 +120,7 @@
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_13.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_14.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_15.png">
-<meta property="og:updated_time" content="2019-06-13T09:24:45.265Z">
+<meta property="og:updated_time" content="2019-06-13T10:28:28.839Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="bsdiff的使用">
 <meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
@@ -401,9 +401,10 @@
       
         <img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
 <a id="more"></a>
-<p>最近刚刚做完ReactNative基于微软的CodePush进行热更新，可是发现一个问题就是，如果每次更新太慢，一个原因可能是微软的CodePush的服务器在国外，那么如何不依赖微软的CodePush服务器实现增量更新呢？看另一篇博客<br><a href="/2019/06/11/ReactNative之增量升级方案/" title="ReactNative之增量升级方案">ReactNative之增量升级方案</a>,这里主要针对如何实现增量补丁的打包，以及如何将增量包和旧包合并成新包，通过bsdiff技术实现，下面针对Mac、iOS和Android三个平台进行一一讲解。</p>
+<p>最近刚刚做完ReactNative基于微软的CodePush进行热更新，可是发现一个问题就是，如果每次更新太慢，一个原因可能是微软的CodePush的服务器在国外，那么如何不依赖微软的CodePush服务器实现增量更新呢？看另一篇博客<a href="/2019/06/11/ReactNative之增量升级方案/" title="ReactNative之增量升级方案">ReactNative之增量升级方案</a>,这里主要针对如何实现增量补丁的打包，以及如何将增量包和旧包合并成新包，通过bsdiff技术实现，下面针对Mac、iOS和Android三个平台进行一一讲解。</p>
 <h3 id="bsdiff介绍"><a href="#bsdiff介绍" class="headerlink" title="bsdiff介绍"></a>bsdiff介绍</h3><p>bsdiff是一种二进制差分工具，有bsdiff和bspatch组成，将oldfile和newfile做二进制数据差分（即bsdiff操作），得到更新部分(patch文件),再与oldfile进行合并(bspatch操作)成newfile。</p>
 <img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_11.png">
+<p>废话不多说，先撸一遍代码再说。</p>
 <h3 id="Mac下使用bsdiff"><a href="#Mac下使用bsdiff" class="headerlink" title="Mac下使用bsdiff"></a>Mac下使用bsdiff</h3><ul>
 <li>打开终端安装bsdiff</li>
 </ul>
@@ -464,6 +465,10 @@
 <img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_15.png">
 <p>至此iOS集成bsdiff完成。</p>
 <h4 id="android使用bsdiff"><a href="#android使用bsdiff" class="headerlink" title="android使用bsdiff"></a>android使用bsdiff</h4><p>后续更新</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li>bsdiff和bspatch热更新方案：<a href="https://yq.aliyun.com/articles/74390" target="_blank" rel="noopener">https://yq.aliyun.com/articles/74390</a></li>
+<li>iOS使用bsdiff进行资源文件增量更新：<a href="https://www.jianshu.com/p/3c58760079d9" target="_blank" rel="noopener">https://www.jianshu.com/p/3c58760079d9</a></li>
+</ul>
 
       
     </div>
@@ -655,7 +660,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#bsdiff介绍"><span class="nav-number">1.</span> <span class="nav-text">bsdiff介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac下使用bsdiff"><span class="nav-number">2.</span> <span class="nav-text">Mac下使用bsdiff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS使用bsdiff进行文件资源增量更新-bsdiff-bspatch"><span class="nav-number">3.</span> <span class="nav-text">iOS使用bsdiff进行文件资源增量更新(bsdiff/bspatch)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载bsdiff-bzip2文件"><span class="nav-number">3.1.</span> <span class="nav-text">下载bsdiff bzip2文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS集成（xcode10-2）"><span class="nav-number">3.2.</span> <span class="nav-text">iOS集成（xcode10.2）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#android使用bsdiff"><span class="nav-number">3.3.</span> <span class="nav-text">android使用bsdiff</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#bsdiff介绍"><span class="nav-number">1.</span> <span class="nav-text">bsdiff介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac下使用bsdiff"><span class="nav-number">2.</span> <span class="nav-text">Mac下使用bsdiff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS使用bsdiff进行文件资源增量更新-bsdiff-bspatch"><span class="nav-number">3.</span> <span class="nav-text">iOS使用bsdiff进行文件资源增量更新(bsdiff/bspatch)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载bsdiff-bzip2文件"><span class="nav-number">3.1.</span> <span class="nav-text">下载bsdiff bzip2文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS集成（xcode10-2）"><span class="nav-number">3.2.</span> <span class="nav-text">iOS集成（xcode10.2）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#android使用bsdiff"><span class="nav-number">3.3.</span> <span class="nav-text">android使用bsdiff</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">4.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
             
 
           </div>
@@ -689,7 +694,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">8.7k</span>
+    <span title="Site words total count">10k</span>
   
 </div>
 
@@ -713,7 +718,7 @@
 -->
 
 <div class="theme-info">
-    <span class="post-count">博客全站共8.7k字</span>
+    <span class="post-count">博客全站共10k字</span>
 </div>
 
 

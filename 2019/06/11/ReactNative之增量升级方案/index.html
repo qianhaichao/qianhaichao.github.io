@@ -110,8 +110,10 @@
 <meta property="og:site_name" content="LJN">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_11.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190606_66.png">
-<meta property="og:updated_time" content="2019-06-13T09:14:29.429Z">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/14534529649291.jpg">
+<meta property="og:updated_time" content="2019-06-13T11:33:29.102Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ReactNative之增量升级方案">
 <meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
@@ -353,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.2k
+                  2.4k
                 </span>
               
 
@@ -369,7 +371,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  9
                 </span>
               
             </div>
@@ -392,17 +394,16 @@
       
         <img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
 <a id="more"></a>
-<h3 id="起初萌芽"><a href="#起初萌芽" class="headerlink" title="起初萌芽"></a>起初萌芽</h3><p>React Native的热更新就是下载新RN包替换老RN包，但是这样我们的问题就是每次的全量更新RN包会很大，一个影响app包的体积大小，而是浪费用户的带宽流量。那么我们需要考虑的就是增量更新，要达到增量更新的目的，就需要把老RN包和新RN包的差异性找出来，并且可以将这些差异与老RN包还原出新RN包。bsdiff和bspatch相关技术能实现目标。</p>
-<h3 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h3><p><strong>1、服务器</strong><br> 使用bsdiff算法将老RN包和新RN包生成一个补丁patch文件，供客户端下载。</p>
-<p><strong>2、客户端</strong></p>
-<p>下载patch文件，使用bspatch算法将补丁patch文件和老RN包生成一个新的RN包</p>
-<h3 id="安装包命名规范"><a href="#安装包命名规范" class="headerlink" title="安装包命名规范"></a>安装包命名规范</h3><p><strong>1.命名规则：hot_老版本号_新版本号.patched</strong></p>
-<p>如：<br>第一个包，版本号为1，不需要补丁patch文件<br>第二个包，版本号为2，则与第一个包生成一个补丁文件，命名为hot_1_2.patched<br>第三个包，版本号为3，则与第一个包生成一个补丁文件，命名为hot_1_3.patched<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;则与第二个包生成一个补丁文件，命名规则为hot_2_3.patched<br>第四个包，版本号为4，则与第一个包生成一个补丁文件，命名为hot_1_4.patched<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;则与第二个包生成一个补丁，命名为hot_2_4.patched<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;则与第三个包生成一个补丁，命名为hot_3_4.patched</p>
-<p><strong>2.服务器接口根据版本号，返回最新的补丁patch文件</strong></p>
-<p>如：服务器存在<br><code>hot_1_2.patched</code>、<code>hot_1_3.patched</code>、<code>hot_1_4.patched</code>、<code>hot_2_3.patched</code>、<code>hot_2_4.patched</code>、<code>hot_3_4.patched</code>等这些补丁文件。</p>
-<p>则请求结果如下：<br>当收到版本号为1的请求时，服务器返回hot_1_4.patched;<br>当收到版本号为2的请求时，服务器返回hot_2_4.patched;<br>当收到版本号为3的请求时，服务器返回hot_3_4.patched;</p>
-<p>更为复杂的情况，由于我们时混合开发，当牵扯到RN与Native之间的交互发生变更时，我们就不能让热更新发挥作用了，否则会导致崩溃，这里需要做一下逻辑处理。</p>
-<h3 id="系统设计和各模块职责"><a href="#系统设计和各模块职责" class="headerlink" title="系统设计和各模块职责"></a>系统设计和各模块职责</h3><img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190606_66.png">
+<h3 id="起初萌芽"><a href="#起初萌芽" class="headerlink" title="起初萌芽"></a>起初萌芽</h3><p>既然市面上已经有了大厂微软做后盾的CodePush，还有牛X的开源社区的Pushy,为什么还要自己做热更呢？那是有原因的，首先我们从CodePush热更新进行讲解。</p>
+<h4 id="CodePush"><a href="#CodePush" class="headerlink" title="CodePush"></a>CodePush</h4><ul>
+<li>其增量升级仅仅是针对图片资源的</li>
+<li>其升级服务器程序并不开源</li>
+<li>其升级的服务器在美国，国内访问很慢且不稳定</li>
+</ul>
+<h4 id="Pushy"><a href="#Pushy" class="headerlink" title="Pushy"></a>Pushy</h4><ul>
+<li>持续更新，后续用到会进行讲解</li>
+</ul>
+<p>React Native的热更新就是下载新RN包替换老RN包，但是这样我们的问题就是每次的全量更新RN包会很大，一个影响app包的体积大小，而是浪费用户的带宽流量。那么我们需要考虑的就是增量更新，要达到增量更新的目的，就需要把老RN包和新RN包的差异性找出来，并且可以将这些差异与老RN包还原出新RN包。bsdiff和bspatch相关技术能实现目标。</p>
 <h3 id="何为增量？"><a href="#何为增量？" class="headerlink" title="何为增量？"></a>何为增量？</h3><p>一个完整的RN-App通常包含以下几个部分：</p>
 <ul>
 <li>native代码部分（objc/java）</li>
@@ -414,12 +415,13 @@
 <p>针对js代码部分（即bundle文件）的增量指的是，代码改动有多少，增量补丁patch就有多少，哪些没有改动的代码部分是不在补丁范围内的。</p>
 <p>针对图片部分（即assets文件夹）的增量指的是，升级补丁包中只包含新增的图片和有改动的图片。</p>
 <p>那么在app端，下载升级补丁包，只需要和现在的版本进行合并，就能计算出最新版本的全量包。</p>
-<p>总结流程如下：</p>
+<p><strong>总结流程如下：</strong></p>
 <ul>
-<li>计算增量包：v10(新版本) - v1到v9(旧版本) = 增量包（v1-v10.zip、v2-v10.zip）</li>
+<li>计算增量包：v10(新版本) - v1到v9(旧版本) = 增量包（v1-v10.zip、v2-v10.zip…）</li>
 <li>app根据自己当前的版本(比如v6)，下载对应的增量包(v6-v10.zip)</li>
 <li>app中通过 v6(旧版本) + v6-v10.zip(增量包) = 新版本（v10）,计算出新版本的全量包</li>
 </ul>
+<p>当然这里只是简单的操作，实际情况要复杂的多，因为涉及到Native的代码，以及跨版本更新问题。后续进行详细讲解。</p>
 <h3 id="增量算法"><a href="#增量算法" class="headerlink" title="增量算法"></a>增量算法</h3><p>assets增量算法，比较简单，就是比对，可以很容易的比较出新增文件和不同文件（使用md5）</p>
 <p>bundle文件的增量算法，比较复杂，不过有google写的一个开源库，可以针对大字符串进行diff和path,并且支持java、objc、js等等语言，完全的满足了我们的需求。</p>
 <p>只用到2个接口，具体请参考github上的文档</p>
@@ -428,11 +430,38 @@
 <li>app生成全量包时候：patch_apply(patches, text1) =&gt; [text2, results]</li>
 </ol>
 <p>google开源库地址：<a href="https://github.com/bystep15/google-diff-match-patch" target="_blank" rel="noopener">https://github.com/bystep15/google-diff-match-patch</a></p>
+<p>关于bsdiff相关操作，另一篇博客<a href="/2019/06/13/bsdiff的使用/" title="bsdiff的使用">bsdiff的使用</a>中讲到.</p>
+<h3 id="增量更新的大致流程"><a href="#增量更新的大致流程" class="headerlink" title="增量更新的大致流程"></a>增量更新的大致流程</h3><p><strong>1、服务器</strong><br> 使用bsdiff算法将老RN包和新RN包生成一个补丁patch文件，供客户端下载。</p>
+<p><strong>2、客户端</strong></p>
+<p>下载patch文件，使用bspatch算法将补丁patch文件和老RN包生成一个新的RN包</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190613_11.png">
+<h3 id="系统设计和各模块职责"><a href="#系统设计和各模块职责" class="headerlink" title="系统设计和各模块职责"></a>系统设计和各模块职责</h3><img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/Snip20190606_66.png">
 <h3 id="bundle要求的app最小版本"><a href="#bundle要求的app最小版本" class="headerlink" title="bundle要求的app最小版本"></a>bundle要求的app最小版本</h3><p>因为js代码要依赖于native代码的，所以，jsbundle对app的版本是有要求的。</p>
-<p>假如bundle依赖nativev的一个新的接口，这个接口在v3.0版本的app中才会发布，如果v2.0版本的app升级了这个bundle，那么必然会报错，严重的可能会导致app的崩溃。</p>
+<p>假如bundle依赖native的一个新的接口，这个接口在v3.0版本的app中才会发布，如果v2.0版本的app升级了这个bundle，那么必然会报错，严重的可能会导致app的崩溃。</p>
+<h3 id="安装包命名规范"><a href="#安装包命名规范" class="headerlink" title="安装包命名规范"></a>安装包命名规范</h3><p><strong>1.命名规则：hot_老版本号_新版本号.patched</strong></p>
+<p>如：<br>第一个包，版本号为1，不需要补丁patch文件<br>第二个包，版本号为2，则与第一个包生成一个补丁文件，命名为hot_1_2.patched<br>第三个包，版本号为3，则与第一个包生成一个补丁文件，命名为hot_1_3.patched<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;则与第二个包生成一个补丁文件，命名规则为hot_2_3.patched<br>第四个包，版本号为4，则与第一个包生成一个补丁文件，命名为hot_1_4.patched<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;则与第二个包生成一个补丁，命名为hot_2_4.patched<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;则与第三个包生成一个补丁，命名为hot_3_4.patched</p>
+<p><strong>2.服务器接口根据版本号，返回最新的补丁patch文件</strong></p>
+<p>如：服务器存在<br><code>hot_1_2.patched</code>、<code>hot_1_3.patched</code>、<code>hot_1_4.patched</code>、<code>hot_2_3.patched</code>、<code>hot_2_4.patched</code>、<code>hot_3_4.patched</code>等这些补丁文件。</p>
+<p>则请求结果如下：<br>当收到版本号为1的请求时，服务器返回hot_1_4.patched;<br>当收到版本号为2的请求时，服务器返回hot_2_4.patched;<br>当收到版本号为3的请求时，服务器返回hot_3_4.patched;</p>
+<p>更为复杂的情况，由于我们时混合开发，当牵扯到RN与Native之间的交互发生变更时，我们就不能让热更新发挥作用了，否则会导致崩溃，这里需要做一下逻辑处理。</p>
 <h3 id="bundle仓库设计"><a href="#bundle仓库设计" class="headerlink" title="bundle仓库设计"></a>bundle仓库设计</h3><p>存储全量bundle和增量patch</p>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p>bsdiff和bspatch热更新方案：<a href="https://yq.aliyun.com/articles/74390" target="_blank" rel="noopener">https://yq.aliyun.com/articles/74390</a></p>
-
+<h4 id="目录结构说明"><a href="#目录结构说明" class="headerlink" title="目录结构说明"></a>目录结构说明</h4><img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/14534529649291.jpg">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">bundle   存放全量bundle和全量assets的目录,里面的文件基本上是使用react-native bundle命令生成的</span><br><span class="line">    0.1.0</span><br><span class="line">        略</span><br><span class="line">    0.2.0</span><br><span class="line">        android</span><br><span class="line">            略，同ios</span><br><span class="line">        ios</span><br><span class="line">            config.json    此版本的配置信息，包含要求app的最低版本等，手动配置</span><br><span class="line">            index.jsbundle    全量jsbundle文件，使用react-native bundle命令生成</span><br><span class="line">            assets    全量图片目录，使用react-native bundle命令生成</span><br><span class="line">    0.3.0</span><br><span class="line">        略</span><br><span class="line">        </span><br><span class="line">patch   存放增量补丁的目录，里面文件都是命令生成的，无需手动维护    </span><br><span class="line">    0.1.0</span><br><span class="line">        第一版本无文件</span><br><span class="line">    0.2.0</span><br><span class="line">        android</span><br><span class="line">                略，同ios</span><br><span class="line">        ios</span><br><span class="line">            0.1.0-0.2.0.zip    增量包.zip</span><br><span class="line">    0.3.0</span><br><span class="line">        android</span><br><span class="line">                略，同ios</span><br><span class="line">        ios</span><br><span class="line">            0.1.0-0.3.0.zip    增量包.zip</span><br><span class="line">            0.2.0-0.3.0.zip    增量包.zip</span><br><span class="line">    update.json    所有的升级包信息</span><br><span class="line">src    存放打包用的源码</span><br><span class="line">lib    存放打包用依赖的第三方的源码</span><br><span class="line">patch.js    patch命令入口</span><br><span class="line">update.json.js    update.json命令入口</span><br></pre></td></tr></table></figure>
+<h4 id="config-json示例"><a href="#config-json示例" class="headerlink" title="config.json示例"></a>config.json示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;v&quot;: &quot;0.3.0&quot;, //版本</span><br><span class="line">  &quot;min-v&quot;: &quot;4.0.0&quot;, //此版本要求的最小app版本</span><br><span class="line">  &quot;date&quot;: &quot;2016-01-01&quot;, //打包日期</span><br><span class="line">  &quot;des&quot;: [</span><br><span class="line">    &quot;修复xxbug&quot;, &quot;添加xx功能&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="update-json示例"><a href="#update-json示例" class="headerlink" title="update.json示例"></a>update.json示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;v&quot;: &quot;0.1.0&quot;,</span><br><span class="line">    &quot;min-v&quot;: &quot;4.0.0&quot;,</span><br><span class="line">    &quot;date&quot;: &quot;2016-01-01&quot;,</span><br><span class="line">    &quot;des&quot;: [</span><br><span class="line">      &quot;修复xxbug&quot;,</span><br><span class="line">      &quot;添加xx功能&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;iosBundleMd5&quot;: &quot;11f82563f8fd3f22dccb80ad2297f7bc&quot;,</span><br><span class="line">    &quot;androidBundleMd5&quot;: &quot;11f82563f8fd3f22dccb80ad2297f7bc&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;v&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;min-v&quot;: &quot;4.0.0&quot;,</span><br><span class="line">    &quot;date&quot;: &quot;2016-01-01&quot;,</span><br><span class="line">    &quot;des&quot;: [</span><br><span class="line">      &quot;修复xxbug&quot;,</span><br><span class="line">      &quot;添加xx功能&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;iosBundleMd5&quot;: &quot;3ca2824b008132cee515c0ea29938ff2&quot;,</span><br><span class="line">    &quot;androidBundleMd5&quot;: &quot;3ca2824b008132cee515c0ea29938ff2&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;v&quot;: &quot;0.3.0&quot;,</span><br><span class="line">    &quot;min-v&quot;: &quot;4.0.0&quot;,</span><br><span class="line">    &quot;date&quot;: &quot;2016-01-01&quot;,</span><br><span class="line">    &quot;des&quot;: [</span><br><span class="line">      &quot;修复xxbug&quot;,</span><br><span class="line">      &quot;添加xx功能&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;iosBundleMd5&quot;: &quot;dbb81d2383112abb50eb19970c486acd&quot;,</span><br><span class="line">    &quot;androidBundleMd5&quot;: &quot;dbb81d2383112abb50eb19970c486acd&quot;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h3 id="服务器端设计"><a href="#服务器端设计" class="headerlink" title="服务器端设计"></a>服务器端设计</h3><h4 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* bundleV: app中的bundle版本</span><br><span class="line">* appV: app版本</span><br><span class="line">* platform: app的平台</span><br></pre></td></tr></table></figure>
+<h4 id="返回结果说明"><a href="#返回结果说明" class="headerlink" title="返回结果说明"></a>返回结果说明</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">* status : 本次请求后台是否发生了错误</span><br><span class="line">* msg : 给用户看的中文提示信息，静默升级时候没什么用</span><br><span class="line">* latestBundleV : 当前的最新bundle版本</span><br><span class="line">* latestAppMinV : 最新bundle要求的app最低版本</span><br><span class="line">* canUpdate : 能否升级，boolean</span><br><span class="line">* canUpdateBundleV : 能升级的bundle版本</span><br><span class="line">* canUpdateAppMinV : 能升级的bundle要求的app最低版本</span><br><span class="line">* patchUrl : 补丁包相对地址</span><br><span class="line">* platform : 平台：ios or android</span><br></pre></td></tr></table></figure>
+<h4 id="场景一："><a href="#场景一：" class="headerlink" title="场景一："></a>场景一：</h4><p>能升级，且能升级到最新版</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   status: &apos;success&apos;,</span><br><span class="line">   msg: &apos;可以升级，bundle最新版为0.3.0&apos;,</span><br><span class="line">   latestBundleV: &apos;0.3.0&apos;,</span><br><span class="line">   latestAppMinV: &apos;4.0.0&apos;,</span><br><span class="line">   canUpdate: true,</span><br><span class="line">   canUpdateBundleV: &apos;0.3.0&apos;,</span><br><span class="line">   canUpdateAppMinV: &apos;4.0.0&apos;,</span><br><span class="line">   patchUrl: &apos;patch/0.3.0/ios/0.2.0-0.3.0.zip&apos;,</span><br><span class="line">   platform: &apos;ios&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="场景二："><a href="#场景二：" class="headerlink" title="场景二："></a>场景二：</h4><p>无需升级,已经是最新版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   status: &apos;success&apos;,</span><br><span class="line">   msg: &apos;无需升级，已经是最新版本&apos;,</span><br><span class="line">   canUpdate: false,</span><br><span class="line">   platform: &apos;ios&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="场景三："><a href="#场景三：" class="headerlink" title="场景三："></a>场景三：</h4><p>能升级,能升级到当前appMinV的最新bundle版本,但不是最新的bundle,想升最新bundle，必须先升app</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   status: &apos;success&apos;,</span><br><span class="line">   msg: &apos;可以升级，但app版本3.0.0太低，只能升到bundleV0.2.0，bundleV最新为0.3.0&apos;,</span><br><span class="line">   latestBundleV: &apos;0.3.0&apos;,</span><br><span class="line">   latestAppMinV: &apos;4.0.0&apos;,</span><br><span class="line">   canUpdate: true,</span><br><span class="line">   canUpdateBundleV: &apos;0.2.0&apos;,</span><br><span class="line">   canUpdateAppMinV: &apos;3.0.0&apos;,</span><br><span class="line">   patchUrl: &apos;patch/0.2.0/ios/0.1.0-0.2.0.zip&apos;,</span><br><span class="line">   platform: &apos;ios&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="场景四："><a href="#场景四：" class="headerlink" title="场景四："></a>场景四：</h4><p>不能升级,已经是当前appMinV的最新bundle,但不是最新的bundle,想升最新bundle，必须先升app</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   status: &apos;success&apos;,</span><br><span class="line">   msg: &apos;不能升级，当前已经是app3.0.0的最新bundle了，但不是最新bundle0.3.0，想升级bundle到最新，请先升级app&apos;,</span><br><span class="line">   latestBundleV: &apos;0.3.0&apos;,</span><br><span class="line">   latestAppMinV: &apos;4.0.0&apos;,</span><br><span class="line">   canUpdate: false,</span><br><span class="line">   platform: &apos;ios&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Native端设计"><a href="#Native端设计" class="headerlink" title="Native端设计"></a>Native端设计</h3><p>客户端的主要工作就是发请求到服务器询问是否能升级，然后根据返回到信息，下载升级包，解压升级包，安装升级包</p>
+<p>过程中要保证下载到文件是正确的（md5校验），要保证补丁安装之后的全量bundle文件是正确的（md5校验）</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3>
       
     </div>
     
@@ -627,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#起初萌芽"><span class="nav-number">1.</span> <span class="nav-text">起初萌芽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本流程"><span class="nav-number">2.</span> <span class="nav-text">基本流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装包命名规范"><span class="nav-number">3.</span> <span class="nav-text">安装包命名规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统设计和各模块职责"><span class="nav-number">4.</span> <span class="nav-text">系统设计和各模块职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何为增量？"><span class="nav-number">5.</span> <span class="nav-text">何为增量？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增量算法"><span class="nav-number">6.</span> <span class="nav-text">增量算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bundle要求的app最小版本"><span class="nav-number">7.</span> <span class="nav-text">bundle要求的app最小版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bundle仓库设计"><span class="nav-number">8.</span> <span class="nav-text">bundle仓库设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">9.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#起初萌芽"><span class="nav-number">1.</span> <span class="nav-text">起初萌芽</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CodePush"><span class="nav-number">1.1.</span> <span class="nav-text">CodePush</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pushy"><span class="nav-number">1.2.</span> <span class="nav-text">Pushy</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何为增量？"><span class="nav-number">2.</span> <span class="nav-text">何为增量？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增量算法"><span class="nav-number">3.</span> <span class="nav-text">增量算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增量更新的大致流程"><span class="nav-number">4.</span> <span class="nav-text">增量更新的大致流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统设计和各模块职责"><span class="nav-number">5.</span> <span class="nav-text">系统设计和各模块职责</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bundle要求的app最小版本"><span class="nav-number">6.</span> <span class="nav-text">bundle要求的app最小版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装包命名规范"><span class="nav-number">7.</span> <span class="nav-text">安装包命名规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bundle仓库设计"><span class="nav-number">8.</span> <span class="nav-text">bundle仓库设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#目录结构说明"><span class="nav-number">8.1.</span> <span class="nav-text">目录结构说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#config-json示例"><span class="nav-number">8.2.</span> <span class="nav-text">config.json示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#update-json示例"><span class="nav-number">8.3.</span> <span class="nav-text">update.json示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器端设计"><span class="nav-number">9.</span> <span class="nav-text">服务器端设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参数说明"><span class="nav-number">9.1.</span> <span class="nav-text">参数说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#返回结果说明"><span class="nav-number">9.2.</span> <span class="nav-text">返回结果说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#场景一："><span class="nav-number">9.3.</span> <span class="nav-text">场景一：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#场景二："><span class="nav-number">9.4.</span> <span class="nav-text">场景二：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#场景三："><span class="nav-number">9.5.</span> <span class="nav-text">场景三：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#场景四："><span class="nav-number">9.6.</span> <span class="nav-text">场景四：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Native端设计"><span class="nav-number">10.</span> <span class="nav-text">Native端设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">11.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
             
 
           </div>
@@ -661,7 +690,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">8.7k</span>
+    <span title="Site words total count">10k</span>
   
 </div>
 
@@ -685,7 +714,7 @@
 -->
 
 <div class="theme-info">
-    <span class="post-count">博客全站共8.7k字</span>
+    <span class="post-count">博客全站共10k字</span>
 </div>
 
 
