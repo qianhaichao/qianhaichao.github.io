@@ -92,7 +92,7 @@
 
 
 
-  <meta name="keywords" content="Git,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -103,18 +103,17 @@
 
 
 
-<meta name="keywords" content="Git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="玩转Git三剑客">
-<meta property="og:url" content="https://qianhaichao.github.io/2019/06/04/玩转Git三剑客/index.html">
+<meta property="og:title" content="ReactNative之封装iOS原生组件以及通信机制">
+<meta property="og:url" content="https://qianhaichao.github.io/2019/06/18/ReactNative之封装iOS原生组件以及通信机制/index.html">
 <meta property="og:site_name" content="LJN">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/玩转Git三剑客/Git.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/玩转Git三剑客/lifecycle.png">
-<meta property="og:updated_time" content="2019-06-17T01:26:42.242Z">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/./ReactNative/Snip20190618_1.png">
+<meta property="og:updated_time" content="2019-06-19T01:12:44.692Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="玩转Git三剑客">
-<meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/玩转Git三剑客/Git.png">
+<meta name="twitter:title" content="ReactNative之封装iOS原生组件以及通信机制">
+<meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
 
 
 
@@ -144,13 +143,13 @@
 
 
 
-  <link rel="canonical" href="https://qianhaichao.github.io/2019/06/04/玩转Git三剑客/">
+  <link rel="canonical" href="https://qianhaichao.github.io/2019/06/18/ReactNative之封装iOS原生组件以及通信机制/">
 
 
 
 
 
-  <title>玩转Git三剑客 | LJN</title>
+  <title>ReactNative之封装iOS原生组件以及通信机制 | LJN</title>
   
 
 
@@ -281,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://qianhaichao.github.io/2019/06/04/玩转Git三剑客/">
+    <link itemprop="mainEntityOfPage" href="https://qianhaichao.github.io/2019/06/18/ReactNative之封装iOS原生组件以及通信机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LJN～Chao">
@@ -298,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">玩转Git三剑客</h1>
+          <h1 class="post-title" itemprop="name headline">ReactNative之封装iOS原生组件以及通信机制</h1>
         
 
         <div class="post-meta">
@@ -310,8 +309,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-04T19:11:33+08:00">
-                2019-06-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-18T11:11:00+08:00">
+                2019-06-18
               </time>
             
 
@@ -328,7 +327,7 @@
 
           
           
-             <span id="/2019/06/04/玩转Git三剑客/" class="leancloud_visitors" data-flag-title="玩转Git三剑客">
+             <span id="/2019/06/18/ReactNative之封装iOS原生组件以及通信机制/" class="leancloud_visitors" data-flag-title="ReactNative之封装iOS原生组件以及通信机制">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -353,7 +352,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  751
+                  713
                 </span>
               
 
@@ -390,53 +389,32 @@
       
 
       
-        <img src="http://ps52onw3u.bkt.clouddn.com/static/images/玩转Git三剑客/Git.png">
+        <img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
 <a id="more"></a>
-<p>下面我们整理一下常用的Git命令清单，先列举Git的几个专属名词</p>
+<p>ReactNative的中文网中已经给出了<a href="https://reactnative.cn/docs/native-modules-ios/" target="_blank" rel="noopener">原生UI组件的使用指南</a>，我们知道了如何封装原生UI组件供ReactNative使用，如何设置属性、事件回调和样式等，但是当你成功按照官网集成成功后我们会发现，官方给出的例子中，没有涉及到ReactNative如何调用原生UI的公共方法，因为难免一些原生UI会有自己的一些公共方法。下面我们主要从以下几个方面介绍ReactNative如何与iOS组件的调用和通信：</p>
 <ul>
-<li>WorkSpace: 工作区</li>
-<li>Index/Stage: 暂存区</li>
-<li>Repository: 仓库（或本地仓库）</li>
-<li>Remote: 远程仓库</li>
+<li>ReactNative调用iOS原生UI组件</li>
+<li>ReactNative调用iOS原生UI组件的方法 </li>
 </ul>
-<h2 id="初次运行Git前的配置"><a href="#初次运行Git前的配置" class="headerlink" title="初次运行Git前的配置"></a>初次运行Git前的配置</h2><p><strong>用户信息</strong></p>
-<p>当安装完 Git 应该做的第一件事就是设置你的用户名称与邮件地址。 这样做很重要，因为每一个 Git 的提交都会使用这些信息，并且它会写入到你的每一次提交中，不可更改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;xxx&quot;</span><br><span class="line">$ git config --global user.email &quot;xxx.com&quot;</span><br></pre></td></tr></table></figure>
-<p><strong>config的三个作用域</strong></p>
-<p>缺省等同于local</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local</span><br><span class="line">$ git config --global</span><br><span class="line">$ git config --system</span><br></pre></td></tr></table></figure>
-<p>显示config的配置，加上<code>--list</code>,可以查看配置信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --list --local</span><br><span class="line">$ git config --list --global</span><br><span class="line">$ git config --list --system</span><br></pre></td></tr></table></figure>
-<p>你可以通过输入 git config <key> 来检查Git的某一项配置</key></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config user.name</span><br></pre></td></tr></table></figure>
-<p>优先级</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">local &gt; global &gt; system</span><br></pre></td></tr></table></figure>
-<p><strong>设置与清除</strong></p>
-<p>设置,缺省等同于local</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local</span><br><span class="line">$ git config --global</span><br><span class="line">$ git config --system</span><br></pre></td></tr></table></figure>
-<p>清除, –unset</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --unset --local user.name</span><br><span class="line">$ git config --unset --global user.name</span><br><span class="line">$ git config --unset --system user.name</span><br></pre></td></tr></table></figure>
-<h2 id="Git的基本命令"><a href="#Git的基本命令" class="headerlink" title="Git的基本命令"></a>Git的基本命令</h2><h3 id="建Git仓库"><a href="#建Git仓库" class="headerlink" title="建Git仓库"></a>建Git仓库</h3><p>两种方式：</p>
+<h3 id="ReactNative调用iOS原生UI组件的方法"><a href="#ReactNative调用iOS原生UI组件的方法" class="headerlink" title="ReactNative调用iOS原生UI组件的方法"></a>ReactNative调用iOS原生UI组件的方法</h3><ul>
+<li><strong>Native-iOS</strong></li>
+</ul>
+<p>创建一个继承自UIView的<strong>“LJNCustomView”</strong>供ReactNative使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;UIKit/UIKit.h&gt;</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_BEGIN</span><br><span class="line"></span><br><span class="line">@interface LJNCustomView : UIView</span><br><span class="line"></span><br><span class="line">// 测试方法</span><br><span class="line">- (void)testNativeFuc;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_END</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;LJNCustomView.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation LJNCustomView</span><br><span class="line"></span><br><span class="line">// 测试方法</span><br><span class="line">- (void)testNativeFuc</span><br><span class="line">&#123;</span><br><span class="line">  NSLog(@&quot;%s&quot;,__FUNCTION__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>再创建一个继承自RCTViewManager的文件，命名为<strong>“LJNCustomViewManager”</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;React/RCTViewManager.h&gt;</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_BEGIN</span><br><span class="line"></span><br><span class="line">@interface LJNCustomViewManager : RCTViewManager</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_END</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;LJNCustomViewManager.h&quot;</span><br><span class="line">#import &quot;LJNCustomView.h&quot;</span><br><span class="line">#import &lt;React/RCTUIManager.h&gt;</span><br><span class="line"></span><br><span class="line">@interface LJNCustomViewManager()</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation LJNCustomViewManager</span><br><span class="line"></span><br><span class="line">// 导出原生组件</span><br><span class="line">RCT_EXPORT_MODULE(LJNCustomViewComponent);</span><br><span class="line"></span><br><span class="line">// 导出方法</span><br><span class="line">RCT_EXPORT_METHOD(testNativeFuc:(nonnull NSNumber *)reactTag) &#123;</span><br><span class="line">  [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary&lt;NSNumber *,UIView *&gt; *viewRegistry) &#123;</span><br><span class="line">    UIView *view = viewRegistry[reactTag];</span><br><span class="line">    if(![view isKindOfClass:[LJNCustomView class]])&#123;</span><br><span class="line">      RCTLogError(@&quot;Invalid view returned from registry, expecting LJNCustomView, got: %@&quot;, view);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      dispatch_async(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        LJNCustomView *customView = (LJNCustomView *)viewRegistry[reactTag];</span><br><span class="line">        // 调用原生方法</span><br><span class="line">        [customView testNativeFuc];</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 重写view方法：- (UIView *)view;</span><br><span class="line">- (UIView *)view</span><br><span class="line">&#123;</span><br><span class="line">  LJNCustomView *customView = [[LJNCustomView alloc] initWithFrame:CGRectZero];</span><br><span class="line">  return customView;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
 <ul>
-<li>用Git之前已经有项目代码了</li>
+<li><strong>JS</strong></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd &apos;xxx项目代码所在的文件夹&apos;</span><br><span class="line">$ git init</span><br></pre></td></tr></table></figure>
-<ul>
-<li>用Git之前还没有项目代码</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd &apos;某个文件夹&apos;       # 用于存放项目的目录</span><br><span class="line">$ git init &apos;项目名称&apos;   # 会在当前路径下创建和项目名称同名的文件夹</span><br></pre></td></tr></table></figure>
-<h3 id="记录每次更新到仓库"><a href="#记录每次更新到仓库" class="headerlink" title="记录每次更新到仓库"></a>记录每次更新到仓库</h3><p>谨记，我们工作目录下的每一个文件都不外乎两种状态：已跟踪或未跟踪。所以使用Git时文件的生命周期如下：</p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/玩转Git三剑客/lifecycle.png">
-<p>检查当前文件状态</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line"></span><br><span class="line">On branch master</span><br><span class="line">No commits yet</span><br><span class="line">nothing to commit (create/copy files and use &quot;git add&quot; to track)</span><br></pre></td></tr></table></figure>
-<p>这说明你现在的工作目录相当干净。换句话说所有已跟踪文件在上次提交后都未被更改过。最后，该命令还显示了当前所在分支，并告诉你这个分支同远程服务器上对应的分支没有偏离。 现在，分支名是 “master”,这是默认的分支名。 我们在 Git 分支 会详细讨论分支和引用。</p>
-<p>现在，让我们在项目下创建一个新的 README.md 文件。 如果之前并不存在这个文件，使用 git status 命令，你将看到一个新的未跟踪文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ touch README.md</span><br><span class="line">$ git status</span><br><span class="line"></span><br><span class="line">On branch master</span><br><span class="line">No commits yet</span><br><span class="line">Untracked files:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line">	README.md</span><br><span class="line">nothing added to commit but untracked files present (use &quot;git add&quot; to track)</span><br></pre></td></tr></table></figure>
-<p><strong>跟踪新文件</strong></p>
-<p>使用命令 <code>git add</code> 开始跟踪一个文件。 所以，要跟踪 README 文件，运行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add README.md</span><br></pre></td></tr></table></figure>
-<p>此时在运行<code>git status</code>命令，会看到README.md文件已被跟踪，并处于暂存状态：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git add README.md</span><br><span class="line">$ git status</span><br><span class="line"></span><br><span class="line">On branch master</span><br><span class="line">No commits yet</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span><br><span class="line">	new file:   README.md</span><br></pre></td></tr></table></figure>
+<p>创建一个js文件，命名为<strong>“LJNCustomViewIOS”</strong>,实现如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;</span><br><span class="line">import &#123;  </span><br><span class="line">    requireNativeComponent,</span><br><span class="line">    UIManager,</span><br><span class="line">    findNodeHandle</span><br><span class="line">&#125; from &apos;react-native&apos;;</span><br><span class="line"></span><br><span class="line">// 导入原生iOS组件</span><br><span class="line">/**</span><br><span class="line"> * 注意：requireNativeComponent(第一个参数，第二个参数)</span><br><span class="line"> * 参数分析：</span><br><span class="line"> * 第一个参数：如果Native的RCT_EXPORT_MODUEL(js_name);如果js_name为空，默认为类名，但是注意了：这里有坑点，如果类名为&apos;LJNButtonManager&apos;,</span><br><span class="line"> *           那么我们在requireNativeComponent()中第一个参数要去掉Manager,应该为LJNButton，否则提示找不到</span><br><span class="line"> * 第二个参数：和ReactNative导出的组件名一致，这是因为ReactNative的底层框架会检查原生属性和包装类的属性是否一致，来减少错误的发生。</span><br><span class="line"> */</span><br><span class="line">const LJNCustomView = requireNativeComponent(&apos;LJNCustomViewComponent&apos;, LJNCustomViewIOS);</span><br><span class="line"></span><br><span class="line">export default class LJNCustomViewIOS extends React.Component &#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">             &lt;LJNCustomView &#123;...this.props&#125;/&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    testNativeFunc = () =&gt; &#123;</span><br><span class="line">        UIManager.dispatchViewManagerCommand(</span><br><span class="line">            findNodeHandle(this),</span><br><span class="line">            UIManager.getViewManagerConfig(&apos;LJNCustomViewComponent&apos;).Commands.testNativeFuc,</span><br><span class="line">            null</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<font color="red">注意事项：</font>
+
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/./ReactNative/Snip20190618_1.png">
+<p>调用如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import React, &#123;Component&#125; from &apos;react&apos;;</span><br><span class="line">import &#123;</span><br><span class="line">  StyleSheet, </span><br><span class="line">  Text, </span><br><span class="line">  View,</span><br><span class="line">  Button</span><br><span class="line">&#125; from &apos;react-native&apos;;</span><br><span class="line">import LJNCustomViewIOS from &apos;./js/iOSNativeComponent/LJNCustomViewIOS&apos;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">export default class App extends Component&#123;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;View style=&#123;styles.container&#125;&gt;</span><br><span class="line">        &lt;View style=&#123;styles.module_container&#125;&gt;</span><br><span class="line">          &lt;Text&gt;LJNCustomView原生iOS组件，js调用Native方法&lt;/Text&gt;</span><br><span class="line">          &lt;LJNCustomViewIOS</span><br><span class="line">            ref=&#123;(ref) =&gt; this.customViewRef = ref&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">          &lt;Button</span><br><span class="line">            title=&apos;调用原生LJNCustomView的方法&apos;</span><br><span class="line">            onPress=&#123;() =&gt; &#123;</span><br><span class="line">              this.customViewRef &amp;&amp; this.customViewRef.testNativeFunc();</span><br><span class="line">            &#125;&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        &lt;/View&gt;</span><br><span class="line">      &lt;/View&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -451,12 +429,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Git/" rel="tag"># Git</a>
-          
-        </div>
-      
 
       
       
@@ -466,8 +438,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/04/ReactNative填坑笔记/" rel="next" title="ReactNative填坑笔记">
-                <i class="fa fa-chevron-left"></i> ReactNative填坑笔记
+              <a href="/2019/06/16/深入iOS事件处理层次及原理分析/" rel="next" title="深入iOS事件处理层次及原理分析">
+                <i class="fa fa-chevron-left"></i> 深入iOS事件处理层次及原理分析
               </a>
             
           </div>
@@ -476,8 +448,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/05/ReactNative之CodePush热更新/" rel="prev" title="ReactNative之CodePush热更新流程">
-                ReactNative之CodePush热更新流程 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/06/18/如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK/" rel="prev" title="如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK">
+                如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -631,7 +603,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#初次运行Git前的配置"><span class="nav-number">1.</span> <span class="nav-text">初次运行Git前的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git的基本命令"><span class="nav-number">2.</span> <span class="nav-text">Git的基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建Git仓库"><span class="nav-number">2.1.</span> <span class="nav-text">建Git仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#记录每次更新到仓库"><span class="nav-number">2.2.</span> <span class="nav-text">记录每次更新到仓库</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ReactNative调用iOS原生UI组件的方法"><span class="nav-number">1.</span> <span class="nav-text">ReactNative调用iOS原生UI组件的方法</span></a></li></ol></div>
             
 
           </div>

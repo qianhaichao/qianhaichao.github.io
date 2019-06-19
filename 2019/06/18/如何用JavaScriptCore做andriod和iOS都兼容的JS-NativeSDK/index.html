@@ -92,7 +92,7 @@
 
 
 
-  <meta name="keywords" content="Git,">
+  <meta name="keywords" content="JavaScriptCore,">
 
 
 
@@ -103,18 +103,17 @@
 
 
 
-<meta name="keywords" content="Git">
+<meta name="keywords" content="JavaScriptCore">
 <meta property="og:type" content="article">
-<meta property="og:title" content="玩转Git三剑客">
-<meta property="og:url" content="https://qianhaichao.github.io/2019/06/04/玩转Git三剑客/index.html">
+<meta property="og:title" content="如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK">
+<meta property="og:url" content="https://qianhaichao.github.io/2019/06/18/如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK/index.html">
 <meta property="og:site_name" content="LJN">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/玩转Git三剑客/Git.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/玩转Git三剑客/lifecycle.png">
-<meta property="og:updated_time" content="2019-06-17T01:26:42.242Z">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/./JavaScriptCore/timg.jpg">
+<meta property="og:updated_time" content="2019-06-18T11:39:52.839Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="玩转Git三剑客">
-<meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/玩转Git三剑客/Git.png">
+<meta name="twitter:title" content="如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK">
+<meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/./JavaScriptCore/timg.jpg">
 
 
 
@@ -144,13 +143,13 @@
 
 
 
-  <link rel="canonical" href="https://qianhaichao.github.io/2019/06/04/玩转Git三剑客/">
+  <link rel="canonical" href="https://qianhaichao.github.io/2019/06/18/如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK/">
 
 
 
 
 
-  <title>玩转Git三剑客 | LJN</title>
+  <title>如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK | LJN</title>
   
 
 
@@ -281,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://qianhaichao.github.io/2019/06/04/玩转Git三剑客/">
+    <link itemprop="mainEntityOfPage" href="https://qianhaichao.github.io/2019/06/18/如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LJN～Chao">
@@ -298,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">玩转Git三剑客</h1>
+          <h1 class="post-title" itemprop="name headline">如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK</h1>
         
 
         <div class="post-meta">
@@ -310,8 +309,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-04T19:11:33+08:00">
-                2019-06-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-18T18:29:52+08:00">
+                2019-06-18
               </time>
             
 
@@ -328,7 +327,7 @@
 
           
           
-             <span id="/2019/06/04/玩转Git三剑客/" class="leancloud_visitors" data-flag-title="玩转Git三剑客">
+             <span id="/2019/06/18/如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK/" class="leancloud_visitors" data-flag-title="如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -353,7 +352,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  751
+                  919
                 </span>
               
 
@@ -390,53 +389,73 @@
       
 
       
-        <img src="http://ps52onw3u.bkt.clouddn.com/static/images/玩转Git三剑客/Git.png">
+        <img src="http://ps52onw3u.bkt.clouddn.com/static/images/./JavaScriptCore/timg.jpg">
 <a id="more"></a>
-<p>下面我们整理一下常用的Git命令清单，先列举Git的几个专属名词</p>
-<ul>
-<li>WorkSpace: 工作区</li>
-<li>Index/Stage: 暂存区</li>
-<li>Repository: 仓库（或本地仓库）</li>
-<li>Remote: 远程仓库</li>
+<p>Hybrid混合开发模式越来越趋向主流了，于是就避免不了原生Native和JS的交互，也即是通过JavaScriptCore实现JS和Native的通信，总体来说，苹果的JavaScriptCore的API还是很简单易用的，主要的操作步骤如下：</p>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><ul>
+<li>获取JSContext</li>
 </ul>
-<h2 id="初次运行Git前的配置"><a href="#初次运行Git前的配置" class="headerlink" title="初次运行Git前的配置"></a>初次运行Git前的配置</h2><p><strong>用户信息</strong></p>
-<p>当安装完 Git 应该做的第一件事就是设置你的用户名称与邮件地址。 这样做很重要，因为每一个 Git 的提交都会使用这些信息，并且它会写入到你的每一次提交中，不可更改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;xxx&quot;</span><br><span class="line">$ git config --global user.email &quot;xxx.com&quot;</span><br></pre></td></tr></table></figure>
-<p><strong>config的三个作用域</strong></p>
-<p>缺省等同于local</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local</span><br><span class="line">$ git config --global</span><br><span class="line">$ git config --system</span><br></pre></td></tr></table></figure>
-<p>显示config的配置，加上<code>--list</code>,可以查看配置信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --list --local</span><br><span class="line">$ git config --list --global</span><br><span class="line">$ git config --list --system</span><br></pre></td></tr></table></figure>
-<p>你可以通过输入 git config <key> 来检查Git的某一项配置</key></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git config user.name</span><br></pre></td></tr></table></figure>
-<p>优先级</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">local &gt; global &gt; system</span><br></pre></td></tr></table></figure>
-<p><strong>设置与清除</strong></p>
-<p>设置,缺省等同于local</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --local</span><br><span class="line">$ git config --global</span><br><span class="line">$ git config --system</span><br></pre></td></tr></table></figure>
-<p>清除, –unset</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --unset --local user.name</span><br><span class="line">$ git config --unset --global user.name</span><br><span class="line">$ git config --unset --system user.name</span><br></pre></td></tr></table></figure>
-<h2 id="Git的基本命令"><a href="#Git的基本命令" class="headerlink" title="Git的基本命令"></a>Git的基本命令</h2><h3 id="建Git仓库"><a href="#建Git仓库" class="headerlink" title="建Git仓库"></a>建Git仓库</h3><p>两种方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.jsContext = [self.webView valueForKeyPath:@&quot;documentView.webView.mainFrame.javaScriptContext&quot;];</span><br></pre></td></tr></table></figure>
 <ul>
-<li>用Git之前已经有项目代码了</li>
+<li>处理某个js调用Native的方法</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd &apos;xxx项目代码所在的文件夹&apos;</span><br><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">_jsContext[@&quot;log&quot;] = ^() &#123; </span><br><span class="line">        NSArray *args = [JSContext currentArguments]; </span><br><span class="line">        for (id obj in args) &#123; </span><br><span class="line">            //需要注意这里的obj都还是JSValue </span><br><span class="line">            NSLog(@&quot;%@&quot;,obj); </span><br><span class="line">        &#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>用Git之前还没有项目代码</li>
+<li>Native调用JS方法</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd &apos;某个文件夹&apos;       # 用于存放项目的目录</span><br><span class="line">$ git init &apos;项目名称&apos;   # 会在当前路径下创建和项目名称同名的文件夹</span><br></pre></td></tr></table></figure>
-<h3 id="记录每次更新到仓库"><a href="#记录每次更新到仓库" class="headerlink" title="记录每次更新到仓库"></a>记录每次更新到仓库</h3><p>谨记，我们工作目录下的每一个文件都不外乎两种状态：已跟踪或未跟踪。所以使用Git时文件的生命周期如下：</p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/玩转Git三剑客/lifecycle.png">
-<p>检查当前文件状态</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line"></span><br><span class="line">On branch master</span><br><span class="line">No commits yet</span><br><span class="line">nothing to commit (create/copy files and use &quot;git add&quot; to track)</span><br></pre></td></tr></table></figure>
-<p>这说明你现在的工作目录相当干净。换句话说所有已跟踪文件在上次提交后都未被更改过。最后，该命令还显示了当前所在分支，并告诉你这个分支同远程服务器上对应的分支没有偏离。 现在，分支名是 “master”,这是默认的分支名。 我们在 Git 分支 会详细讨论分支和引用。</p>
-<p>现在，让我们在项目下创建一个新的 README.md 文件。 如果之前并不存在这个文件，使用 git status 命令，你将看到一个新的未跟踪文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ touch README.md</span><br><span class="line">$ git status</span><br><span class="line"></span><br><span class="line">On branch master</span><br><span class="line">No commits yet</span><br><span class="line">Untracked files:</span><br><span class="line">  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line">	README.md</span><br><span class="line">nothing added to commit but untracked files present (use &quot;git add&quot; to track)</span><br></pre></td></tr></table></figure>
-<p><strong>跟踪新文件</strong></p>
-<p>使用命令 <code>git add</code> 开始跟踪一个文件。 所以，要跟踪 README 文件，运行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add README.md</span><br></pre></td></tr></table></figure>
-<p>此时在运行<code>git status</code>命令，会看到README.md文件已被跟踪，并处于暂存状态：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git add README.md</span><br><span class="line">$ git status</span><br><span class="line"></span><br><span class="line">On branch master</span><br><span class="line">No commits yet</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)</span><br><span class="line">	new file:   README.md</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[self.jsContext evaluateScript:@&quot;log(&apos;arg1&apos;)&quot;];</span><br><span class="line">[self.jsContext evaluateScript:@&quot;logCallback(&apos;arg1&apos;)&quot;];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重定义某个JS方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[self.jsContext evaluateScript:@&quot;checkAPI = function()&#123;\</span><br><span class="line">    return [\</span><br><span class="line">    &apos;selectImage&apos;,\</span><br><span class="line">    &apos;startRecord&apos;,\</span><br><span class="line">    &apos;login&apos;,\</span><br><span class="line">    ];\</span><br><span class="line">&#125;&quot;];</span><br></pre></td></tr></table></figure>
+<p>上述几个步骤，其实已经能满足我们开发的基本使用了。可是后来发现由于平台差异性问题，在android端JS调用原生Native的时候，需要指定<code>interfaceName</code>接口名称，所以android和js的通信方式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// js调用android方法的方式</span><br><span class="line">xxxname.log(&apos;xxx&apos;);</span><br></pre></td></tr></table></figure>
+<p>可是这种方式在iOS平台下，是无法调用iOS原生方法的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 这个不能被执行到 </span><br><span class="line">self.jsContext[@&quot;xxname.log&quot;] = ^() &#123; </span><br><span class="line">    NSArray *args = [JSContext currentArguments]; </span><br><span class="line">    for (id obj in args) &#123;</span><br><span class="line">        //需要注意这里的obj都还是JSValue     </span><br><span class="line">        NSLog(@&quot;%@&quot;,obj); </span><br><span class="line">     &#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>那么有什么好的解决办法吗？那是肯定的，要不然不白说废话了吗?</p>
+<h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3><p><strong>方案一：</strong></p>
+<p>使用JSExport协议，来达到android的处理效果</p>
+<ul>
+<li>定义一个遵守<jsexport>协议的协议类LJNWebViewJSHelperProtocol，并在协议中定义JS要调用原生的方法</jsexport></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import &lt;JavaScriptCore/JavaScriptCore.h&gt;</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_BEGIN</span><br><span class="line"></span><br><span class="line">@protocol LJNWebViewJSHelperProtocol &lt;JSExport&gt;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> 调用原生方法</span><br><span class="line"> */</span><br><span class="line">- (void)callNativeMethod:(NSString *)arg;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_END</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建一个继承自NSObject的类LJNWebViewJSHelper并遵守LJNWebViewJSHelperProtocol，实现协议方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line">#import &quot;LJNWebViewJSHelperProtocol.h&quot;</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_BEGIN</span><br><span class="line"></span><br><span class="line">@interface LJNWebViewJSHelper : NSObject&lt;LJNWebViewJSHelperProtocol&gt;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_END</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;LJNWebViewJSHelper.h&quot;</span><br><span class="line"></span><br><span class="line">@implementation LJNWebViewJSHelper</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> 调用原生方法</span><br><span class="line"> */</span><br><span class="line">- (void)callNativeMethod:(NSString *)arg</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;JS调用原生方法, 参数arg：%@&quot;,arg);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意该类的实例到JSContext中</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)webViewDidFinishLoad:(UIWebView *)webView</span><br><span class="line">&#123;</span><br><span class="line">    self.jsContext[@&quot;xxxname&quot;] = [[LJNWebViewJSHelper alloc] init];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此JS就可以通过xxxname.callNativeMethod的形式调用Native方法了。</p>
+<p><strong>注意：</strong></p>
+<p>不要编写<code>self.jsContext[@&quot;xxxname&quot;] = self;</code>这样的代码，因为会导致self实例被JS端持有从而导致内存无法释放。</p>
+<p><strong>方案二：</strong></p>
+<p>对比方案一，无需实现协议方法</p>
+<ul>
+<li>创建一个LJNWebViewJSExport类，遵守JSExport协议</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line">#import &lt;JavaScriptCore/JavaScriptCore.h&gt;</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_BEGIN</span><br><span class="line"></span><br><span class="line">@interface LJNWebViewJSExport : NSObject&lt;JSExport&gt;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_END</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注册给JSContext</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.jsContext[@&quot;xxxname&quot;] = [[LJNWebViewJSExport alloc] init];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>处理JS调用Native的方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">self.jsContext[@&quot;callNativeMethod&quot;] = ^(NSString *arg) &#123;</span><br><span class="line">        NSArray *args = [JSContext currentArguments];</span><br><span class="line">        for (id obj in args) &#123;</span><br><span class="line">            // 需要注意这里的obj还是JSValue</span><br><span class="line">            NSLog(@&quot;%@&quot;,obj);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">// 重定义xxxname.log方法</span><br><span class="line">[self.jsContext evaluateScript:@&quot;xxxname.log = log&quot;];</span><br></pre></td></tr></table></figure>
+<p>至此两种解决方案都已讲述完毕。个人觉得解决方案二有点更多一些，更贴近JS习惯，其次不需要定义那么多的方法，其次对于JS端调用来说，不定参数个数也更容易一些。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>使用 <code>NSArray *args = [JSContext currentArguments];</code>得到的args，内部都是JSValue，千万注意这一点，如果想要使用，最好转成相应的类型，比如[obj toString]之类的，具体可以看JSValue的头文件 </li>
+<li>要注意循环引用的问题，不要写出 <code>self.jsContext[@”xxname”] = self;</code> 这样的代码来，其他的就是block中的循环引用问题。</li>
+<li>注意JS和Native的生命周期，一般情况下不会出现什么问题，但是必要时需要使用JSVirtualMachine包装一下。<ul>
+<li>JS的内存管理方式是GC</li>
+<li>iOS的内存管理方式是引用计数 </li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     
@@ -453,7 +472,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Git/" rel="tag"># Git</a>
+            <a href="/tags/JavaScriptCore/" rel="tag"># JavaScriptCore</a>
           
         </div>
       
@@ -466,8 +485,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/04/ReactNative填坑笔记/" rel="next" title="ReactNative填坑笔记">
-                <i class="fa fa-chevron-left"></i> ReactNative填坑笔记
+              <a href="/2019/06/18/ReactNative之封装iOS原生组件以及通信机制/" rel="next" title="ReactNative之封装iOS原生组件以及通信机制">
+                <i class="fa fa-chevron-left"></i> ReactNative之封装iOS原生组件以及通信机制
               </a>
             
           </div>
@@ -476,8 +495,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/05/ReactNative之CodePush热更新/" rel="prev" title="ReactNative之CodePush热更新流程">
-                ReactNative之CodePush热更新流程 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/06/19/ReactNative之Pushy热更新流程/" rel="prev" title="ReactNative之Pushy热更新流程">
+                ReactNative之Pushy热更新流程 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -631,7 +650,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#初次运行Git前的配置"><span class="nav-number">1.</span> <span class="nav-text">初次运行Git前的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git的基本命令"><span class="nav-number">2.</span> <span class="nav-text">Git的基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建Git仓库"><span class="nav-number">2.1.</span> <span class="nav-text">建Git仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#记录每次更新到仓库"><span class="nav-number">2.2.</span> <span class="nav-text">记录每次更新到仓库</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本使用"><span class="nav-number">1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高级用法"><span class="nav-number">2.</span> <span class="nav-text">高级用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
