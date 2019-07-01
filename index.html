@@ -280,6 +280,476 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://qianhaichao.github.io/2019/07/01/App配置多环境变量以及马甲包制作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LJN～Chao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/0f60f9dd3ed48fc14a3bc47a9cf60535.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LJN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/01/App配置多环境变量以及马甲包制作/" itemprop="url">App配置多环境变量以及马甲包制作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-01T16:02:38+08:00">
+                2019-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/01/App配置多环境变量以及马甲包制作/" class="leancloud_visitors" data-flag-title="App配置多环境变量以及马甲包制作">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><h3 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h3><p>大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境</p>
+<h3 id="场景二"><a href="#场景二" class="headerlink" title="场景二"></a>场景二</h3><p>制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是不可取的，这里我们采用Configuration来实现这两个需求。定义好不同的Configuration后，就可以分别设置 Build、Archive、Test等操作分别使用哪一个 Configuration 进行编译，从而可以轻松地分离开各个环境变量的设置。</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="新建Configuration"><a href="#新建Configuration" class="headerlink" title="新建Configuration"></a>新建Configuration</h3><p>选择<code>PROJECT</code> -&gt; <code>Info</code> -&gt; <code>Configurations</code>,点击<code>+</code>别分选择<code>Debug</code>和<code>Release</code>，并重新命名为<code>Debug-Beta</code>和<code>Release-Beta</code>分别代表马甲包的两个<code>Configuration</code>,顾名思义，<code>Debug</code>是用来开发调试的，而<code>Release</code>用于打包发布的，区别是<code>Debug</code>模式下预编译的宏<code>DEBUG=1</code>,<code>Release</code>不能调试程序，并且<code>Release</code>编译时做了优化</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_18.png">
+<p>配置完成后的效果如下</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_19.png">
+<font color="red">注意：新建完Configuration后要重新执行<code>pod install</code></font>
+
+<h3 id="新建Scheme"><a href="#新建Scheme" class="headerlink" title="新建Scheme"></a>新建Scheme</h3><p>完成了上一步的<code>Configuration</code>后，这里我们新建<code>Scheme</code>,命名为<code>001-App配置多环境以及马甲包的制作-Beta</code>,先 <code>New Scheme</code>，然后在<code>Manage Scheme</code>,大致操作如下：</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_23.png">
+<p>先点击<code>New Scheme</code>，新建一个名为<code>001-App配置多环境以及马甲包的制作-Beta</code>的Scheme.</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_24.png">
+<p>然后在<code>Manage Scheme</code>，<font color="red">注意：勾选Shared</font></p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_25.png">
+<p>最后在<code>Edit Scheme</code>中把<code>Run</code>和<code>Archive</code>模式改成对应的<code>Build Configuration</code></p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_26.png">
+<p>点击<code>Archived</code>,然后选择对应的<code>Release-Beta</code></p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_27.png">
+<h3 id="配置AppIcon和LaunchImage"><a href="#配置AppIcon和LaunchImage" class="headerlink" title="配置AppIcon和LaunchImage"></a>配置AppIcon和LaunchImage</h3><p>新建<code>App Icons &amp; Launch Images</code>,创建<code>AppIcon-Beta</code>和<code>LaunchImage-Beta</code></p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_28.png">
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_29.png">
+<p>接下来我们工程中配置对应的<code>AppIcon</code>和<code>LaunchImage</code>,选择<code>Targets</code> -&gt; <code>Building Settings</code>,搜索<code>asset</code>,按下图配置即可</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_31.png">
+<p>此时选择不同的<code>Scheme</code>运行，你会发现不同的<code>Scheme</code>已经有不用的<code>AppIcon</code>和<code>LaunchImage</code></p>
+<h3 id="配置App名称、Bundle-ID-和证书"><a href="#配置App名称、Bundle-ID-和证书" class="headerlink" title="配置App名称、Bundle ID 和证书"></a>配置App名称、Bundle ID 和证书</h3><ul>
+<li><strong>配置App名称</strong></li>
+</ul>
+<p>在 <code>PROJECT</code> -&gt; <code>Building Settings</code> -&gt; <code>+</code> -&gt; <code>Add User-Defined Setting</code>，即增加用户自定义设置，添加一个App名称的设置，为不同的<code>Configuration</code>配置不同的App名称。</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_32.png">
+<p>然后在<code>Info.plist</code>中设置<code>Bundle display name</code>，为我们自定义设置的key,即<code>${CUSTOMAPPNAME}</code></p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_33.png">
+<ul>
+<li><strong>配置Bundle ID和证书</strong></li>
+</ul>
+<p>不同的马甲包，肯定是不同的<code>bundle identifier</code>，也就意味着需要不同的证书管理，那么此时设置<code>TARGETS</code> -&gt; <code>Build Settings</code>中搜索<code>bundle</code>,设置<code>Product Bundle Identifier</code></p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_34.png">
+<p>证书配置如下</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_35.png">
+<h3 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h3><p>根据Configuration配置不同的预编译宏，在TARGETS -&gt; Build Settings -&gt; Preprocessor Macros进行配置，比如渠道号、接口域名等</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_37.png">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#ifndef PrefixHeader_pch</span><br><span class="line">#define PrefixHeader_pch</span><br><span class="line"></span><br><span class="line">/** 渠道标识 **/</span><br><span class="line">#ifdef MaJiaB</span><br><span class="line">#define kChannelID = @&quot;MaJiaB_1&quot;;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/** 接口域名配置 **/</span><br><span class="line">#if DEBUG</span><br><span class="line">#define TTK_URL_SSL_PREFIX      @&quot;http://www.baidu.com&quot;</span><br><span class="line">#else</span><br><span class="line">#define TTK_URL_SSL_PREFIX      @&quot;http://www.sina.com&quot;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">#endif /* PrefixHeader_pch */</span><br></pre></td></tr></table></figure>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_39.png">
+<h2 id="如何巧妙的使用编译宏定义让代码在不同情况下执行"><a href="#如何巧妙的使用编译宏定义让代码在不同情况下执行" class="headerlink" title="如何巧妙的使用编译宏定义让代码在不同情况下执行"></a>如何巧妙的使用编译宏定义让代码在不同情况下执行</h2><p>关于预编译宏定义如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifdef SERVER_ENV</span><br><span class="line">代码块一...</span><br><span class="line">#else</span><br><span class="line">代码块二...</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<p>如果标识符SERVER_ENV已经被#define过了，则对代码块一进行编译，否则对代码块二进行编译。</p>
+<p>同时也有#ifndef,则与#ifdef刚好相反。</p>
+<ul>
+<li><strong><strong>OPTIMIZE</strong></strong></li>
+</ul>
+<p>用于release和debug的判断，当选择了<strong>OPTIMIZE</strong>时，可以让代码在Release模式下执行，在Debug模式下不执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifndef __OPTIMIZE__</span><br><span class="line">    // 这里执行的是Debug模式下</span><br><span class="line">#else</span><br><span class="line">    //这里执行的是Release模式下</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>i386 与 x86_64 ：用于模拟器环境和真机环境的判断。满足该条件的代码只在模拟器下执行。示例代码如下：</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#if defined (__i386__) || defined (__x86_64__)</span><br><span class="line">    // 模拟器下执行</span><br><span class="line">#else</span><br><span class="line">    // 真机下执行</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><strong>IPHONE_OS_VERSION_MAX_ALLOWED :当前编译的SDK版本，可以与</strong>IPHONE_9_0等宏定义进行比较，进行不同版本下代码的执行。示例如下：</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if (__IPHONE_OS_VERSION_MAX_ALLOWED == __IPHONE_9_0)</span><br><span class="line">   &#123;</span><br><span class="line">       //如果当前SDK版本为9.0是执行这里的代码</span><br><span class="line">   &#125;else</span><br><span class="line">   &#123;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://qianhaichao.github.io/2019/06/27/AppDelegate瘦身实战/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LJN～Chao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/0f60f9dd3ed48fc14a3bc47a9cf60535.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LJN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/27/AppDelegate瘦身实战/" itemprop="url">AppDelegate瘦身实战</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-27T17:45:46+08:00">
+                2019-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/06/27/AppDelegate瘦身实战/" class="leancloud_visitors" data-flag-title="AppDelegate瘦身实战">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  896
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>AppDelegate</code>的瘦身是一个常谈的话题，而且网络上也各有各家的说法，但是一般都是采用两种方式实现<code>AppDelegate</code>的瘦身，一种是从AppDelegate本身入手，通过各种办法减少AppDelegate的代码；另外一种是从架构层面入手了。</p>
+<h1 id="从AppDelegate本身入手"><a href="#从AppDelegate本身入手" class="headerlink" title="从AppDelegate本身入手"></a>从AppDelegate本身入手</h1><p>目前采用的实践方案有3种，分别为：</p>
+<ul>
+<li>FRDModuleManager</li>
+<li>JSDecoupledAppDelegate</li>
+<li>category分类</li>
+</ul>
+<h3 id="FRDModuleManager"><a href="#FRDModuleManager" class="headerlink" title="FRDModuleManager"></a>FRDModuleManager</h3><p><a href="https://github.com/lincode/FRDModuleManager" target="_blank" rel="noopener">FRDModuleManager</a>是豆瓣开源的一个轻量级模块管理工具。通过注册模块类，遵守协议来拆分AppDelegate的指责，这样AppDelegate就更容易维护，而且它的核心类<code>FRDModuleManager</code>不到400行的代码，很容易理解，使用也很简单。</p>
+<ul>
+<li>加载注册模块文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 获取AppDelegate的配置,并且执行相关方法</span><br><span class="line">NSString *plistPath = [[NSBundle mainBundle] pathForResource:@&quot;ModulesRegister&quot; ofType:@&quot;plist&quot;];</span><br><span class="line">FRDModuleManager *mgr = [FRDModuleManager sharedInstance];</span><br><span class="line">[mgr loadModulesWithPlistFile:plistPath];</span><br><span class="line">[mgr application:application didFinishLaunchingWithOptions:launchOptions];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>遵守协议，实现UIApplication的生命周期方法即可</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line">#import &quot;FRDModuleManager.h&quot;</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_BEGIN</span><br><span class="line"></span><br><span class="line">@interface LJNUMModule : NSObject&lt;FRDModule&gt;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">NS_ASSUME_NONNULL_END</span><br></pre></td></tr></table></figure>
+<ul>
+<li>实现原理</li>
+</ul>
+<p><code>FRDModuleManager</code>的实现原理很简单，其本身遵守<code>UIApplicationDelegate</code>协议，并且内部数组维护一个注册的模块信息，在<code>UIApplication</code>的生命周期方法内，调用<code>FRDModuleManager</code>的相应方法，遍历内部注册的模块，在调用对应模块的相应方法</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/appdelegate_04.jpg">
+<ul>
+<li>优点<ul>
+<li>使用简单方便</li>
+<li>注册的模块，可以享受<code>AppDelegate</code>的整个生命周期 </li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>每个注册模块要初始化并分配内存，如果注册了大量模块，注定要创建大量对象并影响App启动速度</li>
+<li>如果模块之前存在依赖问题，那么初始化会出现问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="JSDecoupledAppDelegate"><a href="#JSDecoupledAppDelegate" class="headerlink" title="JSDecoupledAppDelegate"></a>JSDecoupledAppDelegate</h3><p><a href="https://github.com/JaviSoto/JSDecoupledAppDelegate" target="_blank" rel="noopener">JSDecoupledAppDelegate</a>是由JaviSoto作者开发的一款轻量级的<code>AppDelegate</code>解耦工具，他将AppDelegate的各个功能点独立出来，并通过代理的方式将控制权下发。我们可以看到<code>JSDecoupledAppDelegate</code>中有很多代理，简单列举几个</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">代理名称</th>
+<th style="text-align:center">协议</th>
+<th style="text-align:center">描述 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">appStateDelegate</td>
+<td style="text-align:center">JSApplicationStateDelegate</td>
+<td style="text-align:center">App各种状态 </td>
+</tr>
+<tr>
+<td style="text-align:center">appDefaultOrientationDelegate</td>
+<td style="text-align:center">JSApplicationDefaultOrientationDelegate</td>
+<td style="text-align:center">App通知代理 </td>
+</tr>
+<tr>
+<td style="text-align:center">remoteNotificationsDelegate</td>
+<td style="text-align:center">JSApplicationRemoteNotificationsDelegate</td>
+<td style="text-align:center">App通知代理</td>
+</tr>
+</tbody>
+</table>
+<p>这些代理见名知意，例如appStateDelegate是用于处理App的各种状态（didFinishLaunchingWithOptions、applicationDidBecomeActive等）下的逻辑；remoteNotificationsDelegate是用于处理App的推送的逻辑。JSDecoupledAppDelegate使用起来也非常简单：</p>
+<ul>
+<li>在main.m中将<code>AppDelegate</code>替换成<code>JSDecoupledAppDelegate</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return UIApplicationMain(argc, argv, nil, NSStringFromClass([JSDecoupledAppDelegate class]));</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建一个继承自NSObject的类<code>LJNApplication</code>并遵守<code>JSApplicationStateDelegate</code>协议,在实现类中添加如下代码</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">+ (void)load</span><br><span class="line">&#123;</span><br><span class="line">    LJNApplicationStateDelegate *ap = [[self alloc] init];</span><br><span class="line">    [JSDecoupledAppDelegate sharedAppDelegate].appStateDelegate = ap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;LJNApplicationStateDelegate模块：%@&quot;,NSStringFromSelector(_cmd));</span><br><span class="line">    return YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>实现原理</li>
+</ul>
+<p>如果你对iOS的消息转发机制有所了解的话，<code>JSDecoupledAppDelegate</code>就是通过转发<code>AppDelegate</code>的各个方法来实现的。</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/appdelegate_02.jpg">
+<ul>
+<li>优点<ul>
+<li>由于各个子代理对象的执行顺序是确定的，因此可以解决<code>FRDModuleManager</code>的相互依赖问题</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>由于废弃了原生的AppDelegate，所以我们不能再向以前一样获取<code>windonw</code>，以及<code>window</code>的<code>rootViewController</code>，只能通过<code>view.window</code>曲线救国</li>
+</ul>
+</li>
+</ul>
+<pre><code>((AppDelegate *)[UIApplication sharedApplication].delegate).window
+</code></pre><h3 id="AppDelegate分类"><a href="#AppDelegate分类" class="headerlink" title="AppDelegate分类"></a>AppDelegate分类</h3><p>创建<code>AppDelegate</code>分类无疑是低投入高产出的最好解决方案了。目前公司的项目正在使用该方式。不需要添加任何三方库，我们就可以给AppDelegate添加很多方法，并且能轻松控制方法的执行顺序。</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/delegate_02.png">
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/appdelegate_05.png">
+<p>然而分类的缺点也不言而喻：添加新的属性比较繁琐，只能通过<code>runtime</code>或者<a href="https://github.com/BlocksKit/BlocksKit" target="_blank" rel="noopener">BlocksKit</a>等三方库实现。</p>
+<p>以上三种方法都是通过对AppDelegate修改或添加的方式来达到降低耦合的</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://qianhaichao.github.io/2019/06/19/ReactNative之Pushy热更新流程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -354,7 +824,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  609
+                  610
                 </span>
               
 
@@ -1597,340 +2067,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://qianhaichao.github.io/2019/06/05/ReactNative之CodePush热更新/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LJN～Chao">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/0f60f9dd3ed48fc14a3bc47a9cf60535.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LJN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/05/ReactNative之CodePush热更新/" itemprop="url">ReactNative之CodePush热更新流程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-05T14:37:24+08:00">
-                2019-06-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/06/05/ReactNative之CodePush热更新/" class="leancloud_visitors" data-flag-title="ReactNative之CodePush热更新流程">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3.1k
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  12
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/06/05/ReactNative之CodePush热更新/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://qianhaichao.github.io/2019/06/04/玩转Git三剑客/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LJN～Chao">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/0f60f9dd3ed48fc14a3bc47a9cf60535.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LJN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/04/玩转Git三剑客/" itemprop="url">玩转Git三剑客</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-04T19:11:33+08:00">
-                2019-06-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/06/04/玩转Git三剑客/" class="leancloud_visitors" data-flag-title="玩转Git三剑客">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  751
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <img src="http://ps52onw3u.bkt.clouddn.com/static/images/玩转Git三剑客/Git.png">
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/06/04/玩转Git三剑客/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1983,7 +2119,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1996,7 +2132,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2075,7 +2211,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">12.3k</span>
+    <span title="Site words total count">14.2k</span>
   
 </div>
 
@@ -2099,7 +2235,7 @@
 -->
 
 <div class="theme-info">
-    <span class="post-count">博客全站共12.3k字</span>
+    <span class="post-count">博客全站共14.2k字</span>
 </div>
 
 

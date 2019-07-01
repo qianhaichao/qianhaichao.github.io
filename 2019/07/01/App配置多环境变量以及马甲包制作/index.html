@@ -92,7 +92,7 @@
 
 
 
-  <meta name="keywords" content="React Native,热更新,">
+  <meta name="keywords" content="Objective-C,">
 
 
 
@@ -103,19 +103,35 @@
 
 
 
-<meta name="keywords" content="React Native,热更新">
+<meta name="description" content="使用场景场景一大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境 场景二制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是">
+<meta name="keywords" content="Objective-C">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ReactNative之Pushy热更新流程">
-<meta property="og:url" content="https://qianhaichao.github.io/2019/06/19/ReactNative之Pushy热更新流程/index.html">
+<meta property="og:title" content="App配置多环境变量以及马甲包制作">
+<meta property="og:url" content="https://qianhaichao.github.io/2019/07/01/App配置多环境变量以及马甲包制作/index.html">
 <meta property="og:site_name" content="LJN">
+<meta property="og:description" content="使用场景场景一大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境 场景二制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/./ReactNative/Snip20190619_5.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/./热更新/Snip20190619_11.png">
-<meta property="og:updated_time" content="2019-06-20T05:05:30.534Z">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_18.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_19.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_23.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_24.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_25.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_26.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_27.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_28.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_29.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_31.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_32.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_33.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_34.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_35.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_37.png">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_39.png">
+<meta property="og:updated_time" content="2019-07-01T11:30:16.469Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ReactNative之Pushy热更新流程">
-<meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
+<meta name="twitter:title" content="App配置多环境变量以及马甲包制作">
+<meta name="twitter:description" content="使用场景场景一大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境 场景二制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是">
+<meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_18.png">
 
 
 
@@ -145,13 +161,13 @@
 
 
 
-  <link rel="canonical" href="https://qianhaichao.github.io/2019/06/19/ReactNative之Pushy热更新流程/">
+  <link rel="canonical" href="https://qianhaichao.github.io/2019/07/01/App配置多环境变量以及马甲包制作/">
 
 
 
 
 
-  <title>ReactNative之Pushy热更新流程 | LJN</title>
+  <title>App配置多环境变量以及马甲包制作 | LJN</title>
   
 
 
@@ -282,7 +298,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://qianhaichao.github.io/2019/06/19/ReactNative之Pushy热更新流程/">
+    <link itemprop="mainEntityOfPage" href="https://qianhaichao.github.io/2019/07/01/App配置多环境变量以及马甲包制作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="LJN～Chao">
@@ -299,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ReactNative之Pushy热更新流程</h1>
+          <h1 class="post-title" itemprop="name headline">App配置多环境变量以及马甲包制作</h1>
         
 
         <div class="post-meta">
@@ -311,8 +327,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-19T17:55:53+08:00">
-                2019-06-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-01T16:02:38+08:00">
+                2019-07-01
               </time>
             
 
@@ -329,7 +345,7 @@
 
           
           
-             <span id="/2019/06/19/ReactNative之Pushy热更新流程/" class="leancloud_visitors" data-flag-title="ReactNative之Pushy热更新流程">
+             <span id="/2019/07/01/App配置多环境变量以及马甲包制作/" class="leancloud_visitors" data-flag-title="App配置多环境变量以及马甲包制作">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -354,7 +370,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  610
+                  1k
                 </span>
               
 
@@ -370,7 +386,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  3
                 </span>
               
             </div>
@@ -391,37 +407,65 @@
       
 
       
-        <img src="http://ps52onw3u.bkt.clouddn.com/static/images/ReactNative/ReactNative.jpg">
-<a id="more"></a>
-<p>最近在研究ReactNative的热更新技术，之前总结过了微软的热更新技术-CodePush、今天总结一下ReactNative中文网推出的热更新技术-Pushy,后期总结自己搭建热更新服务器需要注意的事项，以及大致的流程，主要针对iOS平台纯ReactNative项目,由于时间后期会更新针对Android平台。</p>
-<h3 id="iOS平台"><a href="#iOS平台" class="headerlink" title="iOS平台"></a>iOS平台</h3><p>相信大家按照<a href="https://github.com/reactnativecn/react-native-pushy" target="_blank" rel="noopener">ReactNative中文网的Pushy的集成文档</a>一步一步都应该没啥问题了，这里我也不在赘述，我就我项目Pushy遇到的问题进行一下总结。</p>
-<h4 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h4><p>在集成<code>react-native-pushy</code>的时候，发现XCode报错了，提示如下错误：</p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/./ReactNative/Snip20190619_5.png">
-<p><strong>解决办法：</strong></p>
-<blockquote>
-<p>Build Phases -&gt; Link Binary With Libraries -&gt; 添加<code>libz.tdb</code>和<code>libbz2.1.0.tbd</code></p>
-</blockquote>
-<h4 id="问题二"><a href="#问题二" class="headerlink" title="问题二"></a>问题二</h4><p>在打包发布更新的时候，第一步我就懵逼了，为什么要打包一个ipa包上传到平台，Why? 而且说的很模糊。</p>
-<p><strong>官方原话：</strong></p>
-<blockquote>
-<p>通过命令<code>$ pushy uploadIpa &lt;your-package.ipa&gt;</code>即可上传ipa以供后续版本比对之用。<br>随后你可以选择往AppStore发布这个版本，也可以先通过Test flight等方法进行测试</p>
-</blockquote>
-<p>我想说What fucking you doing?,于是我忍了，</p>
-<p><strong>错误的操作流程</strong></p>
-<p>通过Archive的方式打包出一个ipa包，然后推到Pushy热更平台，然后通过Xcode安装了一个release模式的包到手机上。</p>
-<p>后来查看Github文档，找到了原因，原来是我操作的问题，Pushy热更平台上的底包和你手机安装的包必须是一致的，但是我使用Xcode的release模式安装到手机的包和通过Archive打包出来的ipa包虽然代码和版本号等所有信息都一致，但是其实已经是两个包了，所以热更失败了</p>
-<p><strong>解决办法</strong></p>
-<ol>
-<li>正常情况下，直接把ipa包上传到AppStore,完后在推到pushy平台，用户通过AppStore下载的app是可以正常更新没问题的。</li>
-<li>通过归档Archive的方式导出一个<code>Ad Hoc</code>的ipa包，然后通过<code>Apple Configurator2</code>安装到手机上，然后推送到热更Pushy平台</li>
-</ol>
-<h4 id="问题三"><a href="#问题三" class="headerlink" title="问题三"></a>问题三</h4><p>更新代码以及执行了，但是在此检查更新之后，还会提示更新,而且<code>markSuccess()</code>方法也执行了，后来通过<a href="https://github.com/reactnativecn/react-native-pushy/issues/253" target="_blank" rel="noopener">issue253</a>解决了</p>
-<p><strong>原因</strong></p>
-<p>ReactNative新版更改了机制</p>
-<p><strong>解决办法</strong></p>
-<p>本人亲测，正版解法。</p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/./热更新/Snip20190619_11.png">
+        <h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><h3 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h3><p>大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境</p>
+<h3 id="场景二"><a href="#场景二" class="headerlink" title="场景二"></a>场景二</h3><p>制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是不可取的，这里我们采用Configuration来实现这两个需求。定义好不同的Configuration后，就可以分别设置 Build、Archive、Test等操作分别使用哪一个 Configuration 进行编译，从而可以轻松地分离开各个环境变量的设置。</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="新建Configuration"><a href="#新建Configuration" class="headerlink" title="新建Configuration"></a>新建Configuration</h3><p>选择<code>PROJECT</code> -&gt; <code>Info</code> -&gt; <code>Configurations</code>,点击<code>+</code>别分选择<code>Debug</code>和<code>Release</code>，并重新命名为<code>Debug-Beta</code>和<code>Release-Beta</code>分别代表马甲包的两个<code>Configuration</code>,顾名思义，<code>Debug</code>是用来开发调试的，而<code>Release</code>用于打包发布的，区别是<code>Debug</code>模式下预编译的宏<code>DEBUG=1</code>,<code>Release</code>不能调试程序，并且<code>Release</code>编译时做了优化</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_18.png">
+<p>配置完成后的效果如下</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_19.png">
+<font color="red">注意：新建完Configuration后要重新执行<code>pod install</code></font>
 
+<h3 id="新建Scheme"><a href="#新建Scheme" class="headerlink" title="新建Scheme"></a>新建Scheme</h3><p>完成了上一步的<code>Configuration</code>后，这里我们新建<code>Scheme</code>,命名为<code>001-App配置多环境以及马甲包的制作-Beta</code>,先 <code>New Scheme</code>，然后在<code>Manage Scheme</code>,大致操作如下：</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_23.png">
+<p>先点击<code>New Scheme</code>，新建一个名为<code>001-App配置多环境以及马甲包的制作-Beta</code>的Scheme.</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_24.png">
+<p>然后在<code>Manage Scheme</code>，<font color="red">注意：勾选Shared</font></p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_25.png">
+<p>最后在<code>Edit Scheme</code>中把<code>Run</code>和<code>Archive</code>模式改成对应的<code>Build Configuration</code></p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_26.png">
+<p>点击<code>Archived</code>,然后选择对应的<code>Release-Beta</code></p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_27.png">
+<h3 id="配置AppIcon和LaunchImage"><a href="#配置AppIcon和LaunchImage" class="headerlink" title="配置AppIcon和LaunchImage"></a>配置AppIcon和LaunchImage</h3><p>新建<code>App Icons &amp; Launch Images</code>,创建<code>AppIcon-Beta</code>和<code>LaunchImage-Beta</code></p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_28.png">
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_29.png">
+<p>接下来我们工程中配置对应的<code>AppIcon</code>和<code>LaunchImage</code>,选择<code>Targets</code> -&gt; <code>Building Settings</code>,搜索<code>asset</code>,按下图配置即可</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_31.png">
+<p>此时选择不同的<code>Scheme</code>运行，你会发现不同的<code>Scheme</code>已经有不用的<code>AppIcon</code>和<code>LaunchImage</code></p>
+<h3 id="配置App名称、Bundle-ID-和证书"><a href="#配置App名称、Bundle-ID-和证书" class="headerlink" title="配置App名称、Bundle ID 和证书"></a>配置App名称、Bundle ID 和证书</h3><ul>
+<li><strong>配置App名称</strong></li>
+</ul>
+<p>在 <code>PROJECT</code> -&gt; <code>Building Settings</code> -&gt; <code>+</code> -&gt; <code>Add User-Defined Setting</code>，即增加用户自定义设置，添加一个App名称的设置，为不同的<code>Configuration</code>配置不同的App名称。</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_32.png">
+<p>然后在<code>Info.plist</code>中设置<code>Bundle display name</code>，为我们自定义设置的key,即<code>${CUSTOMAPPNAME}</code></p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_33.png">
+<ul>
+<li><strong>配置Bundle ID和证书</strong></li>
+</ul>
+<p>不同的马甲包，肯定是不同的<code>bundle identifier</code>，也就意味着需要不同的证书管理，那么此时设置<code>TARGETS</code> -&gt; <code>Build Settings</code>中搜索<code>bundle</code>,设置<code>Product Bundle Identifier</code></p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_34.png">
+<p>证书配置如下</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_35.png">
+<h3 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h3><p>根据Configuration配置不同的预编译宏，在TARGETS -&gt; Build Settings -&gt; Preprocessor Macros进行配置，比如渠道号、接口域名等</p>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_37.png">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#ifndef PrefixHeader_pch</span><br><span class="line">#define PrefixHeader_pch</span><br><span class="line"></span><br><span class="line">/** 渠道标识 **/</span><br><span class="line">#ifdef MaJiaB</span><br><span class="line">#define kChannelID = @&quot;MaJiaB_1&quot;;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/** 接口域名配置 **/</span><br><span class="line">#if DEBUG</span><br><span class="line">#define TTK_URL_SSL_PREFIX      @&quot;http://www.baidu.com&quot;</span><br><span class="line">#else</span><br><span class="line">#define TTK_URL_SSL_PREFIX      @&quot;http://www.sina.com&quot;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">#endif /* PrefixHeader_pch */</span><br></pre></td></tr></table></figure>
+<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_39.png">
+<h2 id="如何巧妙的使用编译宏定义让代码在不同情况下执行"><a href="#如何巧妙的使用编译宏定义让代码在不同情况下执行" class="headerlink" title="如何巧妙的使用编译宏定义让代码在不同情况下执行"></a>如何巧妙的使用编译宏定义让代码在不同情况下执行</h2><p>关于预编译宏定义如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifdef SERVER_ENV</span><br><span class="line">代码块一...</span><br><span class="line">#else</span><br><span class="line">代码块二...</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<p>如果标识符SERVER_ENV已经被#define过了，则对代码块一进行编译，否则对代码块二进行编译。</p>
+<p>同时也有#ifndef,则与#ifdef刚好相反。</p>
+<ul>
+<li><strong><strong>OPTIMIZE</strong></strong></li>
+</ul>
+<p>用于release和debug的判断，当选择了<strong>OPTIMIZE</strong>时，可以让代码在Release模式下执行，在Debug模式下不执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifndef __OPTIMIZE__</span><br><span class="line">    // 这里执行的是Debug模式下</span><br><span class="line">#else</span><br><span class="line">    //这里执行的是Release模式下</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>i386 与 x86_64 ：用于模拟器环境和真机环境的判断。满足该条件的代码只在模拟器下执行。示例代码如下：</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#if defined (__i386__) || defined (__x86_64__)</span><br><span class="line">    // 模拟器下执行</span><br><span class="line">#else</span><br><span class="line">    // 真机下执行</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><strong>IPHONE_OS_VERSION_MAX_ALLOWED :当前编译的SDK版本，可以与</strong>IPHONE_9_0等宏定义进行比较，进行不同版本下代码的执行。示例如下：</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if (__IPHONE_OS_VERSION_MAX_ALLOWED == __IPHONE_9_0)</span><br><span class="line">   &#123;</span><br><span class="line">       //如果当前SDK版本为9.0是执行这里的代码</span><br><span class="line">   &#125;else</span><br><span class="line">   &#123;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -438,9 +482,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/React-Native/" rel="tag"># React Native</a>
-          
-            <a href="/tags/热更新/" rel="tag"># 热更新</a>
+            <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
           
         </div>
       
@@ -453,8 +495,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/18/如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK/" rel="next" title="如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK">
-                <i class="fa fa-chevron-left"></i> 如何用JavaScriptCore做andriod和iOS都兼容的JS-NativeSDK
+              <a href="/2019/06/27/AppDelegate瘦身实战/" rel="next" title="AppDelegate瘦身实战">
+                <i class="fa fa-chevron-left"></i> AppDelegate瘦身实战
               </a>
             
           </div>
@@ -462,10 +504,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/27/AppDelegate瘦身实战/" rel="prev" title="AppDelegate瘦身实战">
-                AppDelegate瘦身实战 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -618,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS平台"><span class="nav-number">1.</span> <span class="nav-text">iOS平台</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题一"><span class="nav-number">1.1.</span> <span class="nav-text">问题一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题二"><span class="nav-number">1.2.</span> <span class="nav-text">问题二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题三"><span class="nav-number">1.3.</span> <span class="nav-text">问题三</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用场景"><span class="nav-number">1.</span> <span class="nav-text">使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景一"><span class="nav-number">1.1.</span> <span class="nav-text">场景一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景二"><span class="nav-number">1.2.</span> <span class="nav-text">场景二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程"><span class="nav-number">2.</span> <span class="nav-text">流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建Configuration"><span class="nav-number">2.1.</span> <span class="nav-text">新建Configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建Scheme"><span class="nav-number">2.2.</span> <span class="nav-text">新建Scheme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置AppIcon和LaunchImage"><span class="nav-number">2.3.</span> <span class="nav-text">配置AppIcon和LaunchImage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置App名称、Bundle-ID-和证书"><span class="nav-number">2.4.</span> <span class="nav-text">配置App名称、Bundle ID 和证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他配置"><span class="nav-number">2.5.</span> <span class="nav-text">其他配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何巧妙的使用编译宏定义让代码在不同情况下执行"><span class="nav-number">3.</span> <span class="nav-text">如何巧妙的使用编译宏定义让代码在不同情况下执行</span></a></li></ol></div>
             
 
           </div>
