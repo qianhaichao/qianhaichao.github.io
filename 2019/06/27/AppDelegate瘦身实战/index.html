@@ -103,23 +103,21 @@
 
 
 
-<meta name="description" content="AppDelegate的瘦身是一个常谈的话题，而且网络上也各有各家的说法，但是一般都是采用两种方式实现AppDelegate的瘦身，一种是从AppDelegate本身入手，通过各种办法减少AppDelegate的代码；另外一种是从架构层面入手了。 从AppDelegate本身入手目前采用的实践方案有3种，分别为：  FRDModuleManager JSDecoupledAppDelegate c">
 <meta name="keywords" content="Objective-C">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AppDelegate瘦身实战">
 <meta property="og:url" content="https://qianhaichao.github.io/2019/06/27/AppDelegate瘦身实战/index.html">
 <meta property="og:site_name" content="LJN">
-<meta property="og:description" content="AppDelegate的瘦身是一个常谈的话题，而且网络上也各有各家的说法，但是一般都是采用两种方式实现AppDelegate的瘦身，一种是从AppDelegate本身入手，通过各种办法减少AppDelegate的代码；另外一种是从架构层面入手了。 从AppDelegate本身入手目前采用的实践方案有3种，分别为：  FRDModuleManager JSDecoupledAppDelegate c">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/AppDelegate瘦身.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/appdelegate_04.jpg">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/appdelegate_02.jpg">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/delegate_02.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/appdelegate_05.png">
-<meta property="og:updated_time" content="2019-07-01T09:10:53.461Z">
+<meta property="og:updated_time" content="2019-07-02T01:31:45.895Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AppDelegate瘦身实战">
-<meta name="twitter:description" content="AppDelegate的瘦身是一个常谈的话题，而且网络上也各有各家的说法，但是一般都是采用两种方式实现AppDelegate的瘦身，一种是从AppDelegate本身入手，通过各种办法减少AppDelegate的代码；另外一种是从架构层面入手了。 从AppDelegate本身入手目前采用的实践方案有3种，分别为：  FRDModuleManager JSDecoupledAppDelegate c">
-<meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/appdelegate_04.jpg">
+<meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/AppDelegate瘦身.png">
 
 
 
@@ -395,7 +393,9 @@
       
 
       
-        <p><code>AppDelegate</code>的瘦身是一个常谈的话题，而且网络上也各有各家的说法，但是一般都是采用两种方式实现<code>AppDelegate</code>的瘦身，一种是从AppDelegate本身入手，通过各种办法减少AppDelegate的代码；另外一种是从架构层面入手了。</p>
+        <img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/AppDelegate瘦身.png">
+<a id="more"></a>
+<p><code>AppDelegate</code>的瘦身是一个常谈的话题，而且网络上也各有各家的说法，但是一般都是采用两种方式实现<code>AppDelegate</code>的瘦身，一种是从AppDelegate本身入手，通过各种办法减少AppDelegate的代码；另外一种是从架构层面入手了。</p>
 <h1 id="从AppDelegate本身入手"><a href="#从AppDelegate本身入手" class="headerlink" title="从AppDelegate本身入手"></a>从AppDelegate本身入手</h1><p>目前采用的实践方案有3种，分别为：</p>
 <ul>
 <li>FRDModuleManager</li>
