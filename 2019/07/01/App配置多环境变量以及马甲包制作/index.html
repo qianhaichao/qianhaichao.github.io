@@ -103,14 +103,13 @@
 
 
 
-<meta name="description" content="使用场景场景一大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境 场景二制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是">
 <meta name="keywords" content="Objective-C">
 <meta property="og:type" content="article">
 <meta property="og:title" content="App配置多环境变量以及马甲包制作">
 <meta property="og:url" content="https://qianhaichao.github.io/2019/07/01/App配置多环境变量以及马甲包制作/index.html">
 <meta property="og:site_name" content="LJN">
-<meta property="og:description" content="使用场景场景一大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境 场景二制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/App多环境配置与马甲包制作.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_18.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_19.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_23.png">
@@ -127,11 +126,10 @@
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_35.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_37.png">
 <meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_39.png">
-<meta property="og:updated_time" content="2019-07-01T11:30:16.469Z">
+<meta property="og:updated_time" content="2019-07-02T01:22:03.796Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="App配置多环境变量以及马甲包制作">
-<meta name="twitter:description" content="使用场景场景一大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境 场景二制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是">
-<meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_18.png">
+<meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/App多环境配置与马甲包制作.png">
 
 
 
@@ -407,7 +405,9 @@
       
 
       
-        <h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><h3 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h3><p>大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境</p>
+        <img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/App多环境配置与马甲包制作.png">
+<a id="more"></a>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><h3 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h3><p>大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境</p>
 <h3 id="场景二"><a href="#场景二" class="headerlink" title="场景二"></a>场景二</h3><p>制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是不可取的，这里我们采用Configuration来实现这两个需求。定义好不同的Configuration后，就可以分别设置 Build、Archive、Test等操作分别使用哪一个 Configuration 进行编译，从而可以轻松地分离开各个环境变量的设置。</p>
 <h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="新建Configuration"><a href="#新建Configuration" class="headerlink" title="新建Configuration"></a>新建Configuration</h3><p>选择<code>PROJECT</code> -&gt; <code>Info</code> -&gt; <code>Configurations</code>,点击<code>+</code>别分选择<code>Debug</code>和<code>Release</code>，并重新命名为<code>Debug-Beta</code>和<code>Release-Beta</code>分别代表马甲包的两个<code>Configuration</code>,顾名思义，<code>Debug</code>是用来开发调试的，而<code>Release</code>用于打包发布的，区别是<code>Debug</code>模式下预编译的宏<code>DEBUG=1</code>,<code>Release</code>不能调试程序，并且<code>Release</code>编译时做了优化</p>
 <img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_18.png">
