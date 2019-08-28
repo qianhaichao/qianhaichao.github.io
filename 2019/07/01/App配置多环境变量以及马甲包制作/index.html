@@ -103,33 +103,35 @@
 
 
 
+<meta name="description" content="使用场景场景一大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境 场景二制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯">
 <meta name="keywords" content="Objective-C">
 <meta property="og:type" content="article">
 <meta property="og:title" content="App配置多环境变量以及马甲包制作">
 <meta property="og:url" content="https://qianhaichao.github.io/2019/07/01/App配置多环境变量以及马甲包制作/index.html">
 <meta property="og:site_name" content="LJN">
+<meta property="og:description" content="使用场景场景一大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境 场景二制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/App多环境配置与马甲包制作.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_18.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_19.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_23.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_24.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_25.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_26.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_27.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_28.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_29.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_31.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_32.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_33.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_34.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_35.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_37.png">
-<meta property="og:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_39.png">
-<meta property="og:updated_time" content="2019-07-02T01:22:03.796Z">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_18.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_19.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_23.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_24.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_25.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_26.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_27.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_28.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_29.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_31.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_32.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_33.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_34.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_35.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_37.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_39.png">
+<meta property="og:updated_time" content="2019-08-28T08:17:12.982Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="App配置多环境变量以及马甲包制作">
-<meta name="twitter:image" content="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/App多环境配置与马甲包制作.png">
+<meta name="twitter:description" content="使用场景场景一大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境 场景二制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯">
+<meta name="twitter:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_18.png">
 
 
 
@@ -405,50 +407,50 @@
       
 
       
-        <img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/App多环境配置与马甲包制作.png">
+        
 <a id="more"></a>
 <h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><h3 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h3><p>大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境</p>
 <h3 id="场景二"><a href="#场景二" class="headerlink" title="场景二"></a>场景二</h3><p>制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是不可取的，这里我们采用Configuration来实现这两个需求。定义好不同的Configuration后，就可以分别设置 Build、Archive、Test等操作分别使用哪一个 Configuration 进行编译，从而可以轻松地分离开各个环境变量的设置。</p>
 <h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="新建Configuration"><a href="#新建Configuration" class="headerlink" title="新建Configuration"></a>新建Configuration</h3><p>选择<code>PROJECT</code> -&gt; <code>Info</code> -&gt; <code>Configurations</code>,点击<code>+</code>别分选择<code>Debug</code>和<code>Release</code>，并重新命名为<code>Debug-Beta</code>和<code>Release-Beta</code>分别代表马甲包的两个<code>Configuration</code>,顾名思义，<code>Debug</code>是用来开发调试的，而<code>Release</code>用于打包发布的，区别是<code>Debug</code>模式下预编译的宏<code>DEBUG=1</code>,<code>Release</code>不能调试程序，并且<code>Release</code>编译时做了优化</p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_18.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_18.png" alt="Snip20190701_18"></p>
 <p>配置完成后的效果如下</p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_19.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_19.png" alt="Snip20190701_19"></p>
 <font color="red">注意：新建完Configuration后要重新执行<code>pod install</code></font>
 
 <h3 id="新建Scheme"><a href="#新建Scheme" class="headerlink" title="新建Scheme"></a>新建Scheme</h3><p>完成了上一步的<code>Configuration</code>后，这里我们新建<code>Scheme</code>,命名为<code>001-App配置多环境以及马甲包的制作-Beta</code>,先 <code>New Scheme</code>，然后在<code>Manage Scheme</code>,大致操作如下：</p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_23.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_23.png" alt="Snip20190701_23"></p>
 <p>先点击<code>New Scheme</code>，新建一个名为<code>001-App配置多环境以及马甲包的制作-Beta</code>的Scheme.</p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_24.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_24.png" alt="Snip20190701_24"></p>
 <p>然后在<code>Manage Scheme</code>，<font color="red">注意：勾选Shared</font></p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_25.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_25.png" alt="Snip20190701_25"></p>
 <p>最后在<code>Edit Scheme</code>中把<code>Run</code>和<code>Archive</code>模式改成对应的<code>Build Configuration</code></p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_26.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_26.png" alt="Snip20190701_26"></p>
 <p>点击<code>Archived</code>,然后选择对应的<code>Release-Beta</code></p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_27.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_27.png" alt="Snip20190701_27"></p>
 <h3 id="配置AppIcon和LaunchImage"><a href="#配置AppIcon和LaunchImage" class="headerlink" title="配置AppIcon和LaunchImage"></a>配置AppIcon和LaunchImage</h3><p>新建<code>App Icons &amp; Launch Images</code>,创建<code>AppIcon-Beta</code>和<code>LaunchImage-Beta</code></p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_28.png">
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_29.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_28.png" alt="Snip20190701_28"></p>
+<p><img src="../../static/images/OC进阶/Snip20190701_29.png" alt="Snip20190701_29"></p>
 <p>接下来我们工程中配置对应的<code>AppIcon</code>和<code>LaunchImage</code>,选择<code>Targets</code> -&gt; <code>Building Settings</code>,搜索<code>asset</code>,按下图配置即可</p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_31.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_31.png" alt="Snip20190701_31"></p>
 <p>此时选择不同的<code>Scheme</code>运行，你会发现不同的<code>Scheme</code>已经有不用的<code>AppIcon</code>和<code>LaunchImage</code></p>
 <h3 id="配置App名称、Bundle-ID-和证书"><a href="#配置App名称、Bundle-ID-和证书" class="headerlink" title="配置App名称、Bundle ID 和证书"></a>配置App名称、Bundle ID 和证书</h3><ul>
 <li><strong>配置App名称</strong></li>
 </ul>
 <p>在 <code>PROJECT</code> -&gt; <code>Building Settings</code> -&gt; <code>+</code> -&gt; <code>Add User-Defined Setting</code>，即增加用户自定义设置，添加一个App名称的设置，为不同的<code>Configuration</code>配置不同的App名称。</p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_32.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_32.png" alt="Snip20190701_32"></p>
 <p>然后在<code>Info.plist</code>中设置<code>Bundle display name</code>，为我们自定义设置的key,即<code>${CUSTOMAPPNAME}</code></p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_33.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_33.png" alt="Snip20190701_33"></p>
 <ul>
 <li><strong>配置Bundle ID和证书</strong></li>
 </ul>
 <p>不同的马甲包，肯定是不同的<code>bundle identifier</code>，也就意味着需要不同的证书管理，那么此时设置<code>TARGETS</code> -&gt; <code>Build Settings</code>中搜索<code>bundle</code>,设置<code>Product Bundle Identifier</code></p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_34.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_34.png" alt="Snip20190701_34"></p>
 <p>证书配置如下</p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_35.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_35.png" alt="Snip20190701_35"></p>
 <h3 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h3><p>根据Configuration配置不同的预编译宏，在TARGETS -&gt; Build Settings -&gt; Preprocessor Macros进行配置，比如渠道号、接口域名等</p>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_37.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_37.png" alt="Snip20190701_37"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#ifndef PrefixHeader_pch</span><br><span class="line">#define PrefixHeader_pch</span><br><span class="line"></span><br><span class="line">/** 渠道标识 **/</span><br><span class="line">#ifdef MaJiaB</span><br><span class="line">#define kChannelID = @&quot;MaJiaB_1&quot;;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/** 接口域名配置 **/</span><br><span class="line">#if DEBUG</span><br><span class="line">#define TTK_URL_SSL_PREFIX      @&quot;http://www.baidu.com&quot;</span><br><span class="line">#else</span><br><span class="line">#define TTK_URL_SSL_PREFIX      @&quot;http://www.sina.com&quot;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">#endif /* PrefixHeader_pch */</span><br></pre></td></tr></table></figure>
-<img src="http://ps52onw3u.bkt.clouddn.com/static/images/OC进阶/Snip20190701_39.png">
+<p><img src="../../static/images/OC进阶/Snip20190701_39.png" alt="Snip20190701_39"></p>
 <h2 id="如何巧妙的使用编译宏定义让代码在不同情况下执行"><a href="#如何巧妙的使用编译宏定义让代码在不同情况下执行" class="headerlink" title="如何巧妙的使用编译宏定义让代码在不同情况下执行"></a>如何巧妙的使用编译宏定义让代码在不同情况下执行</h2><p>关于预编译宏定义如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#ifdef SERVER_ENV</span><br><span class="line">代码块一...</span><br><span class="line">#else</span><br><span class="line">代码块二...</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
 <p>如果标识符SERVER_ENV已经被#define过了，则对代码块一进行编译，否则对代码块二进行编译。</p>
