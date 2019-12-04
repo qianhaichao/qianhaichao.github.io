@@ -109,7 +109,7 @@
 <meta property="og:url" content="https://qianhaichao.github.io/2019/07/01/App配置多环境变量以及马甲包制作/index.html">
 <meta property="og:site_name" content="LJN">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://qianhaichao.github.io/2019/07/01/static/images/OC进阶/App多环境配置与马甲包制作.png">
+<meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/App多环境配置与马甲包制作.png">
 <meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_18.png">
 <meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_19.png">
 <meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_23.png">
@@ -126,10 +126,10 @@
 <meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_35.png">
 <meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_37.png">
 <meta property="og:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/Snip20190701_39.png">
-<meta property="og:updated_time" content="2019-09-05T13:02:53.177Z">
+<meta property="og:updated_time" content="2019-09-05T13:08:19.916Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="App配置多环境变量以及马甲包制作">
-<meta name="twitter:image" content="https://qianhaichao.github.io/2019/07/01/static/images/OC进阶/App多环境配置与马甲包制作.png">
+<meta name="twitter:image" content="https://qianhaichao.github.io/2019/07/static/images/OC进阶/App多环境配置与马甲包制作.png">
 
 
 
@@ -405,7 +405,7 @@
       
 
       
-        <p><img src="../static/images/OC进阶/App多环境配置与马甲包制作.png" alt="App多环境配置与马甲包制作"></p>
+        <p><img src="../../static/images/OC进阶/App多环境配置与马甲包制作.png" alt="App多环境配置与马甲包制作"></p>
 <a id="more"></a>
 <h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><h3 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h3><p>大部分公司开发App时，都会分为debug环境和release环境，同时接口也是区分环境的，平时的开发和测试都是debug环境下，打包上线的时候改为release环境</p>
 <h3 id="场景二"><a href="#场景二" class="headerlink" title="场景二"></a>场景二</h3><p>制作马甲包，也就是在原来app的基础上，只修改app的名称，icon，LaunchImage，替换app中带有app名称的文本，并用另一个开发者账号发布，马甲包的数量不定。手动在代码里更改环境变量，替换图片肯定是不可取的，这里我们采用Configuration来实现这两个需求。定义好不同的Configuration后，就可以分别设置 Build、Archive、Test等操作分别使用哪一个 Configuration 进行编译，从而可以轻松地分离开各个环境变量的设置。</p>
