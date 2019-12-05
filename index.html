@@ -392,127 +392,18 @@
 
       
         
+          <p><img src="../../static/images/JavaScript/header.jpg" alt><br>
           
-            <h3 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h3><p><strong>JavaScript中的基本数据类型分为：</strong></p>
-<ul>
-<li>Number</li>
-<li>String</li>
-<li>Boolean</li>
-<li>undefined</li>
-<li>null</li>
-</ul>
-<p><strong>那么下面我们进行一下对基本数据类型的转换操作。</strong></p>
-<ul>
-<li>基本数据类型转换为字符串</li>
-<li>基本数据类型转换为数值类型</li>
-<li>基本数据类型转换为布尔类型</li>
-</ul>
-<h4 id="基本数据类型转换为字符串类型"><a href="#基本数据类型转换为字符串类型" class="headerlink" title="基本数据类型转换为字符串类型"></a>基本数据类型转换为字符串类型</h4><p>常用的方法有三种：</p>
-<ol>
-<li>对于Number和Boolean类型来说，可以通过<code>变量.toString()</code>的方式来转换<ul>
-<li>注意点：</li>
-<li><code>变量.toString()</code>前面必须是变量，如果是常量将会报错</li>
-<li>只针对<code>Number</code>和<code>Boolean</code>类型，<code>undefined</code>和<code>null</code>类型将会报错</li>
-<li><code>变量.toString()</code>是对拷贝的数据进行转换，所以不会影响原有的数据</li>
-</ul>
-</li>
-<li>可以通过String(变量/常量)的方式转换为字符串<ul>
-<li>根据传入的数据重新生成一个新的字符串，并不是修改原有的数据</li>
-<li>针对任何基本数据类型均可用</li>
-</ul>
-</li>
-<li>还可以通过<code>变量/常量 + &#39;&#39;</code>或者<code>变量/常量 + &quot;&quot;</code>的形式转换为字符串<ul>
-<li>底层本质就是调用String()函数</li>
-<li>针对任何基本数据类型均可用</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">**方式一：`变量.toString()`**</span><br><span class="line"></span><br><span class="line">// Number转换为字符串</span><br><span class="line">let value = 123;</span><br><span class="line">let str = value.toString();</span><br><span class="line">console.log(str);           // 123</span><br><span class="line">console.log(typeof str);    // string</span><br><span class="line"></span><br><span class="line">// Boolean转换为字符串</span><br><span class="line">let value = true;</span><br><span class="line">let str = value.toString();</span><br><span class="line">console.log(str);           // true</span><br><span class="line">console.log(typeof str);    // string</span><br><span class="line"></span><br><span class="line">// undefined转换为字符串</span><br><span class="line">let value = undefined;</span><br><span class="line">let str = value.toString();</span><br><span class="line">// 报错 Uncaught TypeError: Cannot read property &apos;toString&apos; of undefined at 12-转换为字符串类型.html?_ijt=3vdusa5p2v4h74081b8vdcfpvh:22</span><br><span class="line">console.log(str);           </span><br><span class="line">console.log(typeof str);</span><br><span class="line"></span><br><span class="line">// null转换为字符串</span><br><span class="line">let value = null;</span><br><span class="line">let str = value.toString();</span><br><span class="line">// 报错 Uncaught TypeError: Cannot read property &apos;toString&apos; of undefined at 12-转换为字符串类型.html?_ijt=3vdusa5p2v4h74081b8vdcfpvh:22</span><br><span class="line">console.log(str);           </span><br><span class="line">console.log(typeof str);    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**方式二：`String(变量/常量)`**</span><br><span class="line"></span><br><span class="line">// Number转换为字符串</span><br><span class="line">let value = 123;</span><br><span class="line">let str = String(value);</span><br><span class="line">console.log(str);           // 123</span><br><span class="line">console.log(typeof str);    // string</span><br><span class="line"></span><br><span class="line">// Boolean转换为字符串</span><br><span class="line">let value = 123;</span><br><span class="line">let str = String(value);</span><br><span class="line">console.log(str);           // true</span><br><span class="line">console.log(typeof str);    // string</span><br><span class="line"></span><br><span class="line">// undefined转换为字符串</span><br><span class="line">let value = 123;</span><br><span class="line">let str = String(value);</span><br><span class="line">console.log(str);           // undefined</span><br><span class="line">console.log(typeof str);    // string</span><br><span class="line"></span><br><span class="line">// null转换为字符串</span><br><span class="line">let value = 123;</span><br><span class="line">let str = String(value);</span><br><span class="line">console.log(str);           // null</span><br><span class="line">console.log(typeof str);    // string</span><br><span class="line"></span><br><span class="line">**方式三：`(变量/常量) + &apos;&apos; 或者 (变量/常量) + &quot;&quot;`**</span><br><span class="line"></span><br><span class="line">// Number转化为字符串</span><br><span class="line">let value = 123;</span><br><span class="line">let str = value + &apos;&apos;;</span><br><span class="line">console.log(str);           // 123</span><br><span class="line">console.log(typeof str);    // string</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// Boolean转换为字符串</span><br><span class="line">let value = 123;</span><br><span class="line">let str = value + &apos;&apos;;</span><br><span class="line">console.log(str);           // true</span><br><span class="line">console.log(typeof str);    // string</span><br><span class="line"></span><br><span class="line">// undefined转换为字符串</span><br><span class="line">let value = 123;</span><br><span class="line">let str = value + &apos;&apos;;</span><br><span class="line">console.log(str);           // undefined</span><br><span class="line">console.log(typeof str);    // string</span><br><span class="line"></span><br><span class="line">// null转换为字符串</span><br><span class="line">let value = 123;</span><br><span class="line">let str = value + &apos;&apos;;</span><br><span class="line">console.log(str);           // null</span><br><span class="line">console.log(typeof str);    // string</span><br></pre></td></tr></table></figure>
-<h4 id="基本数据类型转换为数值类型"><a href="#基本数据类型转换为数值类型" class="headerlink" title="基本数据类型转换为数值类型"></a>基本数据类型转换为数值类型</h4><p><strong>常用的方法有三种：</strong></p>
-<ol>
-<li>通过<code>Number(常量/变量)</code>的方式来转换<ul>
-<li>将String类型转换为数值类型<ul>
-<li>如果字符串都是数值，那么就正常转换</li>
-<li>如果字符串是空串””/“   “,那么都会转换为0</li>
-<li>如果字符串中不仅仅是数字，那么转换之后是NaN </li>
-</ul>
-</li>
-<li>将Boolean类型转换为数值类型<ul>
-<li>true转换之后为 1</li>
-<li>false转换之后为 0</li>
-</ul>
-</li>
-<li>将undefied类型转换为数值类型<ul>
-<li>转换之后都为NaN</li>
-</ul>
-</li>
-<li>将null类型转换为数值类型<ul>
-<li>转换之后为 0      </li>
-</ul>
-</li>
-</ul>
-</li>
-<li>还可以通过数学运算符中的<code>+</code>和<code>-</code>的方式转换<ul>
-<li>底层本质上就是调用了Number函数，所以结果同上</li>
-</ul>
-</li>
-<li>还可以通过<code>parseInt(字符串)、parseFloat(字符串)</code>的方式来转换，区别于<code>Number(常量/变量)</code>,可以将数值从字符串中从左至右提取出来<ul>
-<li><code>parseInt(字符串)、parseFloat(字符串)</code>会将传入的数据当作字符串来处理</li>
-<li><code>parseInt(字符串)、parseFloat(字符串)</code>从左至右提取数值，一旦遇到非数值就会立即停止，停止的时候如果没有提取到数值，那么就会返回NaN</li>
-<li>除了String可以提取数值外，Boolean、undefined和null，都会转换为NaN</li>
-</ul>
-</li>
-</ol>
-<p><strong>总结：</strong></p>
-<ul>
-<li>空字符串、falase、null转换之后都是0</li>
-<li>字符串中不仅仅是数字、undefined转换之后是NaN</li>
-<li>其他都正常转换</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">**方式一：`Number(变量/常量)`**</span><br><span class="line"></span><br><span class="line">// String转换为数值类型,如果字符串有没有数据，那么转换的结果为0，如果字符串中的数据不仅仅是数值，那么转换的结果就为NaN</span><br><span class="line">let str = &quot;123&quot;;</span><br><span class="line">let num = Number(str);</span><br><span class="line">console.log(num);           // 123</span><br><span class="line">console.log(typeof num);    // number</span><br><span class="line"></span><br><span class="line">let str  = &quot;123a&quot;;</span><br><span class="line">let num = Number(str);</span><br><span class="line">console.log(num);           // NaN</span><br><span class="line">console.log(typeof num);    // number</span><br><span class="line"></span><br><span class="line">let str  = &quot;      &quot;;</span><br><span class="line">let num = Number(str);</span><br><span class="line">console.log(num);           // 0</span><br><span class="line">console.log(typeof num);    // number</span><br><span class="line"></span><br><span class="line">let str  = &quot;      &quot;;</span><br><span class="line">let num = Number(str);</span><br><span class="line">console.log(num);           // 0</span><br><span class="line">console.log(typeof num);    // number</span><br><span class="line"></span><br><span class="line">// Boolean转换为数值类型</span><br><span class="line">let bl  = true;</span><br><span class="line">let num = Number(bl);</span><br><span class="line">console.log(num);           // 1</span><br><span class="line">console.log(typeof num);    // number</span><br><span class="line"></span><br><span class="line">// undefined转换为数值类型</span><br><span class="line">let uf  = undefined;</span><br><span class="line">let num = Number(uf);</span><br><span class="line">console.log(num);           // NaN</span><br><span class="line">console.log(typeof num);    // number</span><br><span class="line"></span><br><span class="line">// null转换为数值类型</span><br><span class="line">let nl  = null;</span><br><span class="line">let num = Number(nl);</span><br><span class="line">console.log(num);           // 0</span><br><span class="line">console.log(typeof num);    // number</span><br><span class="line"></span><br><span class="line">**方式三：`parseInt(字符串)、parseFloat(字符串)`**的方式将基本数据类型转换为数值类型，通常情况下，即使字符串中包含非数值数据，我们还是希望将数值提取出来，例如 12px,此时`parseInt(字符串)、parseFloat(字符串)`登场</span><br><span class="line"></span><br><span class="line">// 字符串转换为数值类型，</span><br><span class="line">let str = &quot;12px&quot;;</span><br><span class="line">let num = Number(str);</span><br><span class="line">console.log(num);           // NaN</span><br><span class="line">console.log(typeof num);    // number</span><br><span class="line"></span><br><span class="line">let str = &quot;12px&quot;;</span><br><span class="line">let num = parseInt(str);</span><br><span class="line">console.log(num);           // 12</span><br><span class="line">console.log(typeof num);    // number</span><br><span class="line"></span><br><span class="line">let str = &quot;a12px&quot;;</span><br><span class="line">let num = parseInt(str);</span><br><span class="line">console.log(num);           // NaN</span><br><span class="line">console.log(typeof num);    // number</span><br><span class="line"></span><br><span class="line">// Boolean类型转换为Number类型</span><br><span class="line">let bl = &quot;true&quot;;</span><br><span class="line">let num = Number(bl);</span><br><span class="line">console.log(num);           // NaN</span><br><span class="line">console.log(typeof num);    // number</span><br><span class="line"></span><br><span class="line">// undefined类型转换为Number类型</span><br><span class="line">let uf = &quot;undefined&quot;;</span><br><span class="line">let num = Number(uf);</span><br><span class="line">console.log(num);           // NaN</span><br><span class="line">console.log(typeof num);    // number</span><br><span class="line"></span><br><span class="line">// null类型转换为Number类型</span><br><span class="line">let nl = &quot;null&quot;;</span><br><span class="line">let num = Number(nl);</span><br><span class="line">console.log(num);           // NaN</span><br><span class="line">console.log(typeof num);    // number</span><br></pre></td></tr></table></figure>
-<h4 id="基本数据类型转换为布尔类型"><a href="#基本数据类型转换为布尔类型" class="headerlink" title="基本数据类型转换为布尔类型"></a>基本数据类型转换为布尔类型</h4><p>JavaScript中如果想要将基本的数据类型转换为布尔类型，那么只需要调用Boolean(常量/变量)<br><strong>常用的方法：</strong></p>
-<ul>
-<li>String类型转换为Boolean类型<ul>
-<li>只有字符串中有内容就会转换为true，即使是空格</li>
-<li>如果字符串中没有内容就会转换为false </li>
-</ul>
-</li>
-<li>将Number类型转换为Boolean类型<ul>
-<li>只有数值为0才会转换为false,其他的都会转换为true</li>
-<li>NaN也会转换为false </li>
-</ul>
-</li>
-<li>将undefined类型转换为Boolean类型<ul>
-<li>undefined会转换为false </li>
-</ul>
-</li>
-<li>将null类型转换为Boolean类型<ul>
-<li>null会转换为false </li>
-</ul>
-</li>
-</ul>
-<p><strong>总结：</strong></p>
-<ul>
-<li>空字符串、0、NaN、undefined和null都会转换为false,其他的都会转换为true</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// String转换为Boolean类型</span><br><span class="line">let str = &quot;123&quot;;</span><br><span class="line">let value = Boolean(str);</span><br><span class="line">console.log(value);         // true</span><br><span class="line">console.log(typeof value);  // boolean</span><br><span class="line"></span><br><span class="line">let str = &quot; &quot;;</span><br><span class="line">let value = Boolean(str);</span><br><span class="line">console.log(value);         // true</span><br><span class="line">console.log(typeof value);  // boolean</span><br><span class="line"></span><br><span class="line">let str = &quot;&quot;;</span><br><span class="line">let value = Boolean(str);</span><br><span class="line">console.log(value);         // false</span><br><span class="line">console.log(typeof value);  // boolean</span><br><span class="line"></span><br><span class="line">// Number转换为Boolean类型</span><br><span class="line">let num = 0;</span><br><span class="line">let value = Boolean(num);</span><br><span class="line">console.log(value);         // false</span><br><span class="line">console.log(typeof value);  // boolean</span><br><span class="line"></span><br><span class="line">// undefined转换为Boolean类型</span><br><span class="line">let uf = undefined;</span><br><span class="line">let value = Boolean(uf);</span><br><span class="line">console.log(value);         // false</span><br><span class="line">console.log(typeof value);  // boolean</span><br><span class="line"></span><br><span class="line">// null转换为Boolean类型</span><br><span class="line">let nl = null;</span><br><span class="line">let value = Boolean(nl);</span><br><span class="line">console.log(value);         // false</span><br><span class="line">console.log(typeof value);  // boolean</span><br></pre></td></tr></table></figure>
-<h3 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h3><p><strong>关系运算符注意点：</strong></p>
-<ul>
-<li>对于非数值类型的数据，会先转换成数值类型，在进行判断</li>
-<li>对于关系运算符来说，任何数据和NaN进行比较，返回值为false</li>
-<li>如果参数的都是字符串类型，那么不会转换成数值类型在进行比较，而是直接比较字符串的unicode编码</li>
-</ul>
-<p><strong>下面通过几个例子讲述关系运算符</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let ret = 1 &gt; &quot;10&quot;;          // false</span><br><span class="line">let ret = 1 &gt; true;          // false</span><br><span class="line">let ret = 1 &gt; false;         // true</span><br><span class="line">let ret = 1 &gt; null;          // true</span><br><span class="line">let ret = 1 &gt; undefined;     // false</span><br><span class="line">let ret = 1 &gt; NaN;           // false</span><br><span class="line">let ret = null == 0;         // false</span><br><span class="line">let ret = undefined == 0;    // false</span><br><span class="line">let ret = null == undefined; // true</span><br></pre></td></tr></table></figure>
-<p><strong>注意点：</strong></p>
-<ul>
-<li>企业开发中千万不要用过 == 来判断一个数据是否是NaN,如果想要判断某一个数据是否是NaN,那么可以通过isNaN来判断</li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/12/05/01-JavaScript数据类型转换/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
